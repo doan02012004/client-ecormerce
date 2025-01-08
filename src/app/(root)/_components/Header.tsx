@@ -5,26 +5,26 @@ import MiniCart from './minicart/MiniCart'
 
 const Header = () => {
     return (
-        <div className='mb-4'>
-            <div className='bg-gray-900 py-3'>
+        <div className=' mb-4 sticky top-0 z-30 h-16 md:h-28'>
+            <div className='hidden bg-gray-900 py-3 md:block '>
                 <h5 className='text-white text-sm font-medium text-center'>Chào mừng bạn đến với <span className='text-red-600 underline font-semibold'>MD-FASHION</span></h5>
             </div>
             <div className=' w-full bg-white py-3 shadow shadow-gray-300'>
                 <div className='container'>
                     <div className='relative flex justify-between items-center'>
                         <div className='hidden md:block'>
-                            <ul className='flex items-center gap-x-6'>
+                            <ul className='flex items-center md:gap-4 lg:gap-6'>
                                 <li className=' uppercase text-xs font-semibold hover:text-red-600'><Link href={'/'}>Home</Link></li>
                                 <li className=' uppercase text-xs font-semibold  hover:text-red-600'><Link href={'/'}>Phụ Kiện</Link></li>
                                 <li className=' uppercase text-xs font-semibold  hover:text-red-600'><Link href={'/'}>Quần Áo</Link></li>
                                 <li className=' uppercase text-xs font-semibold  hover:text-red-600'><Link href={'/'}>Liên Hệ</Link></li>
                             </ul>
                         </div>
-                        <div className=' absolute left-1/2 -translate-x-1/2 flex items-center gap-x-1 w-96 px-3 py-2 rounded-lg border shadow-md shadow-gray-200 '>
+                        <div className=' flex items-center gap-x-1 w-72 md:w-80 lg:w-96 px-3 py-2 rounded-lg border shadow-md shadow-gray-200 lg:absolute lg:left-1/2 lg:-translate-x-1/2'>
                             <input type="text" placeholder='Nhập tìm kiếm...' className=' outline-0 border-none w-full text-sm' />
                             <SearchIcon className=' cursor-pointer hover:text-blue-600' />
                         </div>
-                        <div className='flex items-center gap-x-8'>
+                        <div className='flex items-center gap-4 lg:gap-8'>
                             {/* auth */}
                             <div className=' group relative size-10 cursor-pointer  rounded-full flex justify-center items-center border transition duration-300 ease-in-out hover:shadow hover:shadow-gray-300'>
                                 <UserIcon className=' transition duration-300 ease-in-out hover:text-indigo-800' />

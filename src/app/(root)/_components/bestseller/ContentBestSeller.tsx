@@ -19,6 +19,25 @@ const ContentBestSeller = () => {
         pagination={{
           clickable: true,
         }}
+        breakpoints={{
+          0:{
+            slidesPerView:2,
+            spaceBetween:20
+          },
+          600:{
+            slidesPerView:3,
+            spaceBetween:20
+          },
+          768:{
+            slidesPerView:4,
+            spaceBetween:20
+          },
+          1280:{
+            slidesPerView:6,
+            spaceBetween:20
+          }
+
+        }}
         navigation={{
           nextEl:'.swiper_next_bestseller',
           prevEl:'.swiper_prev_bestseller'

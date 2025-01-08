@@ -4,8 +4,11 @@ import { Button } from '@/components/ui/button'
 import { ShoppingBag, X } from 'lucide-react'
 import React, { useCallback, useEffect, useRef } from 'react'
 import ProductCartItem from './ProductCartItem'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 const MiniCart = () => {
+    const path = usePathname()
     const divBgMiniCart = useRef<HTMLDivElement | null>(null)
     const divContentMiniCart = useRef<HTMLDivElement | null>(null)
     const { openMiniCart, setOpenMiniCart } = useAppContext()
@@ -51,6 +54,13 @@ const MiniCart = () => {
             }
         }
     }, [openMiniCart, divContentMiniCart, closeMiniBooking])
+
+    // khi thay đổi page thì tự động tắt mini booking
+    useEffect(()=>{
+       if(openMiniCart === true){
+            setOpenMiniCart(false)
+       }
+    },[path])
     return (
         <>
             <div onClick={() => setOpenMiniCart(true)} className='relative size-10 cursor-pointer  rounded-full flex justify-center items-center border transition duration-300 ease-in-out hover:shadow hover:shadow-gray-300'>
@@ -60,7 +70,7 @@ const MiniCart = () => {
 
             {/* fixed booking  */}
             <div ref={divBgMiniCart} className='fixed bg-black/50 -right-full z-50 opacity-0 transition-all duration-300 ease-in-out '>
-                <div ref={divContentMiniCart} className='fixed bg-white inset-y-0 min-w-96 -right-full transition-all duration-500 ease-in-out'>
+                <div ref={divContentMiniCart} className='fixed bg-white inset-y-0 min-w-[340px] lg:min-w-96 -right-full transition-all duration-500 ease-in-out'>
                     {/* header  */}
                     <div className='mb-2'>
                         <X onClick={() => setOpenMiniCart(false)} className='mt-2 ml-3 cursor-pointer mb-4 hover:text-red-600' />
@@ -71,7 +81,7 @@ const MiniCart = () => {
                     </div>
                     <hr />
                     {/* body  */}
-                    <div className='my-3 flex flex-col gap-3 h-[500px] overflow-y-auto px-3'>
+                    <div className='my-3 flex flex-col gap-3 h-[470px] lg:h-[500px] overflow-y-auto px-3'>
                         <ProductCartItem />
                         <ProductCartItem />
                         <ProductCartItem />
@@ -82,7 +92,7 @@ const MiniCart = () => {
                             <span className='text-sm font-semibold'>Tạm tính:</span>
                             <span className='text-sm font-semibold'>1.000.000đ</span>
                         </div>
-                        <Button className='w-full py-5 uppercase'>Xem Giỏ Hàng</Button>
+                       <Link href={'/cart'}> <Button className='w-full py-5 uppercase'>Xem Giỏ Hàng</Button></Link>
                     </div>
                 </div>
             </div>

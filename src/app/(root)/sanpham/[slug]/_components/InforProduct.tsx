@@ -5,6 +5,8 @@ import Rate from '@/components/web/Rate'
 import ao from '@/assets/images/ao-len.jpg'
 import { CustomCard } from '@/app/(root)/_components'
 import DescriptionProduct from './DescriptionProduct'
+import { Button } from '@/components/ui/button'
+import { Heart, Minus, Plus, ShoppingCart } from 'lucide-react'
 const InforProduct = () => {
     return (
         <div className=' basis-[60%] '>
@@ -25,87 +27,99 @@ const InforProduct = () => {
                     <span className='block text-base text-gray-400 line-through'>220.000đ</span>
                 </div>
                 {/* option  */}
-                <div className='mb-2'>
-                    <h3 className='text-sm font-medium mb-2'>Màu</h3>
-                    <div className='flex items-center gap-3 flex-wrap'>
-                        <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
-                            <div className='overflow-hidden size-11 rounded-md'>
-                                <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
-                            </div>
-                            <span className='block text-sm font-medium text-black'>Trắng</span>
-                        </button>
-                        <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
-                            <div className='overflow-hidden size-11 rounded-md'>
-                                <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
-                            </div>
-                            <span className='block text-sm font-medium text-black'>Trắng</span>
-                        </button>
-                        <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
-                            <div className='overflow-hidden size-11 rounded-md'>
-                                <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
-                            </div>
-                            <span className='block text-sm font-medium text-black'>Trắng</span>
-                        </button>
-                        <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
-                            <div className='overflow-hidden size-11 rounded-md'>
-                                <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
-                            </div>
-                            <span className='block text-sm font-medium text-black'>Trắng</span>
-                        </button>
-                        <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
-                            <div className='overflow-hidden size-11 rounded-md'>
-                                <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
-                            </div>
-                            <span className='block text-sm font-medium text-black'>Trắng</span>
-                        </button>
-                        <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
-                            <div className='overflow-hidden size-11 rounded-md'>
-                                <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
-                            </div>
-                            <span className='block text-sm font-medium text-black'>Trắng</span>
-                        </button>
+                <div className='mb-6'>
+                    <div className='mb-2'>
+                        <h3 className='text-sm font-medium mb-2'>Màu</h3>
+                        <div className='flex items-center gap-3 flex-wrap'>
+                            <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
+                                <div className='overflow-hidden size-11 rounded-md'>
+                                    <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
+                                </div>
+                                <span className='block text-sm font-medium text-black'>Trắng</span>
+                            </button>
+                            <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
+                                <div className='overflow-hidden size-11 rounded-md'>
+                                    <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
+                                </div>
+                                <span className='block text-sm font-medium text-black'>Trắng</span>
+                            </button>
+                            <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
+                                <div className='overflow-hidden size-11 rounded-md'>
+                                    <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
+                                </div>
+                                <span className='block text-sm font-medium text-black'>Trắng</span>
+                            </button>
+                            <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
+                                <div className='overflow-hidden size-11 rounded-md'>
+                                    <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
+                                </div>
+                                <span className='block text-sm font-medium text-black'>Trắng</span>
+                            </button>
+                            <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
+                                <div className='overflow-hidden size-11 rounded-md'>
+                                    <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
+                                </div>
+                                <span className='block text-sm font-medium text-black'>Trắng</span>
+                            </button>
+                            <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
+                                <div className='overflow-hidden size-11 rounded-md'>
+                                    <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
+                                </div>
+                                <span className='block text-sm font-medium text-black'>Trắng</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div className='mb-2'>
+                        <h3 className='text-sm font-medium mb-2'>Màu</h3>
+                        <div className='flex items-center gap-3 flex-wrap'>
+                            <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
+                                <div className='overflow-hidden size-11 rounded-md'>
+                                    <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
+                                </div>
+                                <span className='block text-sm font-medium text-black'>Trắng</span>
+                            </button>
+                            <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
+                                <div className='overflow-hidden size-11 rounded-md'>
+                                    <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
+                                </div>
+                                <span className='block text-sm font-medium text-black'>Trắng</span>
+                            </button>
+                            <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
+                                <div className='overflow-hidden size-11 rounded-md'>
+                                    <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
+                                </div>
+                                <span className='block text-sm font-medium text-black'>Trắng</span>
+                            </button>
+                            <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
+                                <div className='overflow-hidden size-11 rounded-md'>
+                                    <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
+                                </div>
+                                <span className='block text-sm font-medium text-black'>Trắng</span>
+                            </button>
+                            <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
+                                <div className='overflow-hidden size-11 rounded-md'>
+                                    <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
+                                </div>
+                                <span className='block text-sm font-medium text-black'>Trắng</span>
+                            </button>
+                            <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
+                                <div className='overflow-hidden size-11 rounded-md'>
+                                    <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
+                                </div>
+                                <span className='block text-sm font-medium text-black'>Trắng</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div className='mb-2'>
-                    <h3 className='text-sm font-medium mb-2'>Màu</h3>
-                    <div className='flex items-center gap-3 flex-wrap'>
-                        <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
-                            <div className='overflow-hidden size-11 rounded-md'>
-                                <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
-                            </div>
-                            <span className='block text-sm font-medium text-black'>Trắng</span>
-                        </button>
-                        <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
-                            <div className='overflow-hidden size-11 rounded-md'>
-                                <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
-                            </div>
-                            <span className='block text-sm font-medium text-black'>Trắng</span>
-                        </button>
-                        <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
-                            <div className='overflow-hidden size-11 rounded-md'>
-                                <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
-                            </div>
-                            <span className='block text-sm font-medium text-black'>Trắng</span>
-                        </button>
-                        <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
-                            <div className='overflow-hidden size-11 rounded-md'>
-                                <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
-                            </div>
-                            <span className='block text-sm font-medium text-black'>Trắng</span>
-                        </button>
-                        <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
-                            <div className='overflow-hidden size-11 rounded-md'>
-                                <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
-                            </div>
-                            <span className='block text-sm font-medium text-black'>Trắng</span>
-                        </button>
-                        <button className='border rounded-lg flex items-center gap-x-2 pl-2 pr-4 py-1'>
-                            <div className='overflow-hidden size-11 rounded-md'>
-                                <Image src={ao} width={100} height={100} alt='option' className='w-full h-full' />
-                            </div>
-                            <span className='block text-sm font-medium text-black'>Trắng</span>
-                        </button>
-                    </div>
+                <div className=' flex gap-2 items-center mb-6'>
+                    <button className='border size-9 flex justify-center items-center rounded-lg hover:bg-gray-200'><Minus size={20} /></button>
+                    <input className='border h-9 w-11 flex justify-center items-center text-center rounded-lg hover:bg-gray-200' type="number" min={1} defaultValue={1} />
+                    <button className='border size-9 flex justify-center items-center rounded-lg hover:bg-gray-200'><Plus /></button>
+                </div>
+                <div className='flex items-center gap-4 mb-6'>
+                    <Button>Thêm giỏ hàng <ShoppingCart /></Button>
+                    <Button>Mua ngay</Button>
+                    <Button className='text-red-500 bg-white hover:bg-blue-100'><Heart /></Button>
                 </div>
             </div>
             <CustomCard

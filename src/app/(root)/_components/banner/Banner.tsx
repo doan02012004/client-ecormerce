@@ -16,7 +16,7 @@ import { ArrowRight } from 'lucide-react';
 const Banner = () => {
   return (
     <div className='bg-white w-full p-3 rounded-lg grid grid-cols-12 gap-6 mb-3'>
-      <div className=' col-span-8 row-span-2 border rounded-lg overflow-hidden'>
+      <div className=' col-span-12 lg:col-span-8 row-span-2 border rounded-lg overflow-hidden'>
         <Swiper
           // effect='fade'
           // slideActiveClass='1'
@@ -86,12 +86,12 @@ const Banner = () => {
           </SwiperSlide>
         </Swiper>
       </div>
-      <div className=' col-span-4 p-4 rounded-lg bg-gray-800 relative'>
+      <div className=' hidden lg:block col-span-4 p-4 rounded-lg bg-gray-800 relative'>
           <h1 className='uppercase text-xl text-white mb-3'>Đặt Sân Bóng Đá</h1>
           <p className=' m-0 text-sm text-green-100'>Hỗ trợ đặt sân bóng đá trực tuyến trên toàn quốc. Giúp bạn dễ dàng đặt các lịch đấu ở nơi bạn muốn !</p>
           <Button className=' absolute right-4 bottom-4 bg-white text-red-700 border border-gray-300 hover:bg-gray-100'>Xem Ngay</Button>
       </div>
-      <div className=' col-span-4 p-4 rounded-lg bg-gray-800 relative'>
+      <div className='hidden lg:block col-span-4 p-4 rounded-lg bg-gray-800 relative'>
           <h1 className='uppercase text-xl text-white mb-3'>Đặt Sân Bóng Đá</h1>
           <p className=' m-0 text-sm text-green-100'>Hỗ trợ đặt sân bóng đá trực tuyến trên toàn quốc. Giúp bạn dễ dàng đặt các lịch đấu ở nơi bạn muốn !</p>
           <Button className=' absolute right-4 bottom-4 bg-white text-red-700 border border-gray-300 hover:bg-gray-100'>Xem Ngay</Button>
