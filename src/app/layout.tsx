@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import AppProvider from "./AppProvider";
 import { Roboto } from "next/font/google";
+import StoreProvider from "@/redux/StoreProvider";
 
 
 const roboto = Roboto({
@@ -24,9 +25,11 @@ export default function RootLayout({
       <body
         className={`${roboto.className} antialiased`}
       >
-        <AppProvider>
-          {children}
-        </AppProvider>
+        <StoreProvider>
+          <AppProvider>
+            {children}
+          </AppProvider>
+        </StoreProvider>
       </body>
     </html>
   );

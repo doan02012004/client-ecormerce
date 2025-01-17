@@ -1,8 +1,19 @@
 import React from 'react'
+import ShippingMethodItem from './ShippingMethodItem'
 
 const ShippingMethod = () => {
   return (
-    <div className='p-4 rounded-lg bg-white'>ShippingMethod</div>
+    <div className='p-4 rounded-lg bg-white'>
+       {/* header  */}
+      <div className=' mb-3'>
+        <h3 className='font-semibold text-lg '>Hình thức giao hàng</h3>
+      </div>
+      {/* content  */}
+      <div className='grid grid-cols-2 gap-6'>
+          <ShippingMethodItem />
+          <ShippingMethodItem />
+      </div>
+    </div>
   )
 }
 

@@ -1,4 +1,4 @@
-import { HistoryIcon, LogOutIcon, SearchIcon, ShoppingBagIcon, UserIcon } from 'lucide-react'
+import { HistoryIcon, LockIcon, LogOutIcon, SearchIcon, ShoppingBagIcon, UserIcon } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 import MiniCart from './minicart/MiniCart'
@@ -30,10 +30,11 @@ const Header = () => {
                                 <UserIcon className=' transition duration-300 ease-in-out hover:text-indigo-800' />
                                 <div className='hidden absolute z-50 top-full right-0 min-w-44 px-3 py-2 rounded-lg shadow-md shadow-gray-400 bg-white group-hover:block'>
                                     <ul className='flex flex-col gap-3'>
-                                        <li className='text-sm flex items-center gap-x-2 hover:text-red-600 pb-2 border-b'><UserIcon className='w-5' /> <Link href={'/'}>Thông tin tài khoản</Link></li>
-                                        <li className='text-sm flex items-center gap-x-2 hover:text-red-600 pb-2 border-b'><ShoppingBagIcon className='w-5' /> <Link href={'/'}>Quản lý đơn hàng</Link></li>
-                                        <li className='text-sm flex items-center gap-x-2 hover:text-red-600 pb-2 border-b'><HistoryIcon className='w-5' /> <Link href={'/'}>Lịch sử đặt sân</Link></li>
-                                        <li className='text-sm flex items-center gap-x-2 hover:text-red-600 '><LogOutIcon className='w-5' /> <Link href={'/'}>Đăng xuất</Link></li>
+                                    <li className='text-sm flex items-center gap-x-2 hover:text-red-600 pb-2 border-b'><LockIcon className='w-5' /> <a href={'/admin'}>Quản trị Admin</a></li>
+                                        <li className='text-sm flex items-center gap-x-2 hover:text-red-600 pb-2 border-b'><UserIcon className='w-5' /> <a href={'/'}>Thông tin tài khoản</a></li>
+                                        <li className='text-sm flex items-center gap-x-2 hover:text-red-600 pb-2 border-b'><ShoppingBagIcon className='w-5' /> <a href={'/'}>Quản lý đơn hàng</a></li>
+                                        <li className='text-sm flex items-center gap-x-2 hover:text-red-600 pb-2 border-b'><HistoryIcon className='w-5' /> <a href={'/'}>Lịch sử đặt sân</a></li>
+                                        <li className='text-sm flex items-center gap-x-2 hover:text-red-600 '><LogOutIcon className='w-5' /> <a href={'/'}>Đăng xuất</a></li>
                                     </ul>
                                 </div>
                             </div>

@@ -1,5 +1,6 @@
 import { Minus, Plus, Trash } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 const CartItem = () => {
@@ -9,10 +10,10 @@ const CartItem = () => {
                 <input type="checkbox" className='size-5' />
                 <div className='grid grid-cols-[64px_auto] gap-4'>
                     <div className='h-20 w-full'>
-                        <Image src={'/assets/images/ao-len.jpg'} width={100} height={120} className='h-full w-full object-cover' alt='image product' />
+                        <Link href={'/sanpham/1'}><Image src={'/assets/images/ao-len.jpg'} width={100} height={120} className='h-full w-full object-cover' alt='image product' /></Link>
                     </div>
                     <div>
-                        <h4 className=' line-clamp-2 text-sm mb-3'>Áo Thun 3 Lỗ Nữ 2 Chiếc Lá Vải Cotton Co Giãn 4 Chiều Mặc Đẹp Tôn Dáng, Đa Nặng Mặc Tập GYM, Dạo Phố, Tập Thể Dục SN121 Sally Boutique</h4>
+                       <Link href={'/sanpham/1'}> <h4 className=' line-clamp-2 text-sm mb-3 hover:text-blue-600'>Áo Thun 3 Lỗ Nữ 2 Chiếc Lá Vải Cotton Co Giãn 4 Chiều Mặc Đẹp Tôn Dáng, Đa Nặng Mặc Tập GYM, Dạo Phố, Tập Thể Dục SN121 Sally Boutique</h4></Link>
                         <p className=' line-clamp-1 text-xs text-gray-500'>Trắng, XL</p>
                     </div>
                 </div>
