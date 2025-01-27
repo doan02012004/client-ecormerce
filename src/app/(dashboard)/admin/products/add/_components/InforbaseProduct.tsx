@@ -1,9 +1,9 @@
 'use client'
 
-import { useAppContext } from '@/app/AppProvider';
+import { CustomLoading } from '@/components/web';
 import { setProductImages, setProductInfor } from '@/redux/features/productSlice';
 import { RootState } from '@/redux/store';
-import { Edit3Icon, ImageIcon, Loader, Loader2Icon, LoaderCircle } from 'lucide-react';
+import { Edit3Icon, ImageIcon} from 'lucide-react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import React, { useState } from 'react'
@@ -18,8 +18,7 @@ const InforbaseProduct = () => {
     const { register, formState: { errors } } = useForm({
         mode: "onChange"
     })
-    const [imageUrls, setImageUrls] = useState<string[]>([]);
-    const { imageFiles, setImageFiles } = useAppContext()
+    const [maxImage,] = useState<number>(9);
     const [loadingImages, setLoadingImages] = useState<boolean>(false)
     const productInfor = useSelector((state: RootState) => state.product.productInfor)
     const dispatch = useDispatch()
@@ -27,7 +26,7 @@ const InforbaseProduct = () => {
     const onChangeImages = async(e: React.ChangeEvent<HTMLInputElement>) => {
         setLoadingImages(true)
         if (e.target.files) {
-            const files = Array.from(e?.target?.files).slice(0, 9); // Chuyển FileList thành mảng
+            const files = Array.from(e?.target?.files).slice(0, Number(maxImage -productInfor.images.length )); // Chuyển FileList thành mảng
              for (const file of files) {
                 const formData = new FormData()
                 formData.append('image', file)
@@ -54,7 +53,7 @@ const InforbaseProduct = () => {
         const { name, value } = e.target;
         dispatch(setProductInfor({ ...productInfor, [name]: value }))
     }
-    // console.log(loadingImages)
+
     return (
         <div className='px-2 py-4 rounded-lg bg-white'>
             {/* header  */}
@@ -71,15 +70,17 @@ const InforbaseProduct = () => {
                                 <Image src={image.url} width={100} height={100} className='w-full h-full object-cover' alt={`image`} />
                             </div>
                         ))}
-                        <label className=' relative size-16 border rounded-md flex items-center justify-center cursor-pointer hover:border-blue-500' htmlFor='upload-images'>
-                            <input disabled={loadingImages} onChange={(e) => onChangeImages(e)} multiple type="file" className='hidden' id='upload-images' />
+                        <label className={` ${productInfor.images.length >= 9 && 'border-red-500'} relative size-16 border rounded-md flex items-center justify-center cursor-pointer hover:border-blue-500`} htmlFor='upload-images'>
+                            {productInfor.images.length < maxImage && (
+                                <input disabled={loadingImages} onChange={(e) => onChangeImages(e)} multiple type="file" className='hidden' id='upload-images' />
+                            )}
                             <div className='flex flex-col items-center gap-2'>
-                                {!loadingImages ? (
-                                    <Loader2Icon size={24} />
+                                {loadingImages ? (
+                                    <CustomLoading />
                                 ) : (
                                     <ImageIcon size={24} />
                                 )}
-                                <span className='text-xs'>{productInfor?.images?.length}/9</span>
+                                <span className='text-xs'>{productInfor?.images?.length}/{maxImage}</span>
                             </div>
                         </label>
                     </div>

@@ -47,6 +47,9 @@ const productSlice = createSlice({
         setProductOptions:(state,action) =>{
             state.productOptions = action.payload
         },
+        setImagesProductOption:(state,action) =>{
+            state.productOptions[0].values[action.payload.index].image = action.payload.image
+        },
         setProductModels:(state,action) =>{
             state.productModels = action.payload
         },
@@ -62,6 +65,6 @@ const productSlice = createSlice({
     }
 })
 
-export const {setProductInfor,setProductOptions, setProductModels, setProductAttributes, setProductShip,setProductImages} = productSlice.actions
+export const {setProductInfor,setProductOptions,setImagesProductOption, setProductModels, setProductAttributes, setProductShip,setProductImages} = productSlice.actions
  
 export default productSlice.reducer

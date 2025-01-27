@@ -1,14 +1,13 @@
 'use client'
-import { RootState } from '@/redux/store'
-import { checkDataProductModels } from '@/utils/client/main'
+
 import React from 'react'
-import { useSelector } from 'react-redux'
+
 
 const CreateProduct = () => {
-    const productInfor = useSelector((state:RootState) => state.product.productInfor)
-    const productOptions = useSelector((state:RootState) => state.product.productOptions)
-    const productModels = useSelector((state:RootState) => state.product.productModels)
-    const productShip = useSelector((state:RootState) => state.product.productShip)
+    // const productInfor = useSelector((state:RootState) => state.product.productInfor)
+    // const productOptions = useSelector((state:RootState) => state.product.productOptions)
+    // const productModels = useSelector((state:RootState) => state.product.productModels)
+    // const productShip = useSelector((state:RootState) => state.product.productShip)
 
     const onCreateProductPublic = () =>{
         // let check = {

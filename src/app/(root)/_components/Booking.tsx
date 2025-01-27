@@ -32,6 +32,7 @@ const Booking = () => {
         if(divContentBook.current && !divContentBook.current.contains(event.target as Node) === true){
             setOpenMiniBooking(false)
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     // xử lý logic ẩn hiện mini Booking

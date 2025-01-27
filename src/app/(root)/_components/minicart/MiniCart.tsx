@@ -34,7 +34,7 @@ const MiniCart = () => {
         if (divContentMiniCart.current && !divContentMiniCart.current.contains(event.target as Node) === true) {
             setOpenMiniCart(false)
         }
-    }, [])
+    }, [setOpenMiniCart])
 
     // xử lý logic ẩn hiện mini Booking
     useEffect(() => {
@@ -60,6 +60,7 @@ const MiniCart = () => {
        if(openMiniCart === true){
             setOpenMiniCart(false)
        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[path])
     return (
         <>

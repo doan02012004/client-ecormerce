@@ -166,16 +166,16 @@ const ClassifyProduct = () => {
         dispatch(setProductOptions(newOptions))
     }
     //hàm xử lý giá trị của phân loại
-    const onBlurValueClassify = (e: React.ChangeEvent<HTMLInputElement>, indexOption: number, indexValue: number) => {
-        // const label = e.target.value
-        // const values = productOptions[indexOption].values
-        // if (label == '' && productOptions.length > 1) {
-        //     const newValues = values.filter((value, index) => index === indexValue)
-        //     const newOptions = productOptions.map((item, i) => i === indexOption ? { ...item, values: newValues } : item)
-        //     dispatch(setProductOptions(newOptions))
+    // const onBlurValueClassify = (e: React.ChangeEvent<HTMLInputElement>, indexOption: number, indexValue: number) => {
+    //     // const label = e.target.value
+    //     // const values = productOptions[indexOption].values
+    //     // if (label == '' && productOptions.length > 1) {
+    //     //     const newValues = values.filter((value, index) => index === indexValue)
+    //     //     const newOptions = productOptions.map((item, i) => i === indexOption ? { ...item, values: newValues } : item)
+    //     //     dispatch(setProductOptions(newOptions))
 
-        // }
-    }
+    //     // }
+    // }
     return (
         <div className='grid grid-cols-[100px_auto] gap-3' >
             <div className='text-sm'>
@@ -193,9 +193,9 @@ const ClassifyProduct = () => {
                             <label className=' text-sm block'> Giá trị </label>
                             {item.name !== '' && (
                                 <div className='flex items-center gap-3 flex-wrap'>
-                                    {item?.values.map((valueItem, i) => (
+                                    {item?.values.map((valueItem) => (
                                         <div key={valueItem._id} className='w-fit min-w-24 max-w-44'>
-                                            <CustomInputText value={valueItem.label} onBlur={(e) => onBlurValueClassify(e, index, i)} name='product_name' onChange={(e) => onChangeValueClassify(e, index, valueItem?._id ?? '')} placeholder='VD: xanh,đỏ,M,L,X,...' />
+                                            <CustomInputText value={valueItem.label}  name='product_name' onChange={(e) => onChangeValueClassify(e, index, valueItem?._id ?? '')} placeholder='VD: xanh,đỏ,M,L,X,...' />
                                         </div>
                                     ))}
                                     <button onClick={() => onAddValueOptions(item, index)} className='px-3 py-1 border border-black flex items-center text-xs hover:bg-white  '> <Plus size={16} /> Giá trị</button>
@@ -208,8 +208,8 @@ const ClassifyProduct = () => {
                             <label className=' text-sm block'> Ảnh </label>
                             {item.name !== '' && (
                                 <div className='flex items-center gap-3 flex-wrap'>
-                                    {item?.values.map((valueItem) => (
-                                       valueItem.label !=='' && <ImageValueOption key={valueItem._id} option={item} value={valueItem} />
+                                    {item?.values.map((valueItem,indexValue:number) => (
+                                       valueItem.label !=='' && <ImageValueOption key={valueItem._id} index={indexValue} option={item} value={valueItem} />
                                     ))}
                                    
                                 </div>

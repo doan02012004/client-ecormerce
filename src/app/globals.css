@@ -77,9 +77,6 @@ body {
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
-}
-
-@layer base {
   * {
     @apply border-border;
   }
@@ -88,6 +85,10 @@ body {
     font-family: Helvetica, Arial, sans-serif;
     box-sizing: border-box;
   }
+}
+
+@layer components {
+
   .container {
     @apply mx-auto px-3 lg:px-14;
   }
@@ -116,13 +117,19 @@ body {
     bottom: 1px;
     right: 1px;
   }
+  .loader{
+    animation: loading 0.7s infinite linear ;
+  }
+
+  @keyframes loading {
+    from {
+      rotate: 0deg;
+    }
+    to{
+      rotate: 360deg;
+    }
+    
+  }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
+

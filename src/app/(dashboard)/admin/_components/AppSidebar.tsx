@@ -9,33 +9,33 @@ const AppSidebar = () => {
     const data = {  
         navMain: [
           {
-            title: "Sản phẩm",
+            title: "Quản lý sản phẩm",
             url: "#",
             icon: <SquareTerminal />,
             isActive: true,
             items: [
               {
-                title: "Danh sách",
+                title: "Sản phẩm",
                 url: "/admin/products",
               },
               {
-                title: "Thêm sản phẩm",
-                url: "/admin/products/add",
+                title: "Danh mục",
+                url: "/admin/categories",
               },
               {
-                title: "Settings",
+                title: "Thương hiệu",
                 url: "#",
               },
             ],
           },
           {
-            title: "Danh mục",
+            title: "Quản lý người dùng",
             url: "#",
             icon: <Bot />,
             items: [
               {
-                title: "Genesis",
-                url: "#",
+                title: "Người dùng",
+                url: "/admin/categories",
               },
               {
                 title: "Explorer",
@@ -48,12 +48,12 @@ const AppSidebar = () => {
             ],
           },
           {
-            title: "Người dùng",
+            title: "Quản lý đơn hàng",
             url: "#",
             icon: <Bot />,
             items: [
               {
-                title: "Genesis",
+                title: "Đơn hàng",
                 url: "#",
               },
               {

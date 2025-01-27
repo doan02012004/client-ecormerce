@@ -18,10 +18,10 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
         <SidebarProvider>
             <AppSidebar />
             <SidebarInset>
-               <HeaderAdmin />
+                <HeaderAdmin />
                 <div className='p-4 min-h-screen bg-gray-100'>
-                {children}
-               <Toaster />
+                    {children}
+                    <Toaster />
                 </div>
             </SidebarInset>
         </SidebarProvider>
