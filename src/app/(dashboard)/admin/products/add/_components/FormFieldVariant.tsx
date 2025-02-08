@@ -1,63 +1,113 @@
 'use client'
 import { useToast } from '@/hooks/use-toast'
-import { setProductModels } from '@/redux/features/productSlice'
-import { RootState } from '@/redux/store'
-import { Imodel } from '@/shemas/product'
+import { Imodel, Iproduct } from '@/types/product'
 import { discount } from '@/utils/client/main'
-import React, { useCallback } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useCallback, useState } from 'react'
+import {UseFormSetValue } from 'react-hook-form'
+import { z } from 'zod'
 
 interface dataForm {
-    original_price:number,price:number,stock:number,sku:string
+    original_price: number, price: number, stock: number, sku: string
 }
-const FormFieldVariant = () => {
-    const {register,handleSubmit,formState:{errors}} = useForm<dataForm>()
-    const productModels = useSelector((state:RootState) => state.product.productModels)
-    const dispatch = useDispatch()
-    const {toast} = useToast()
 
-    const fieldAllDataVariant = useCallback((data:dataForm,models:Imodel[]) =>{
+type FormFieldVariantProps ={
+    setValue:UseFormSetValue<Iproduct>,
+    models:Imodel[]
+}
+
+ const modelValueShema = z.object({
+    original_price:z.number().min(1),
+    price:z.number().min(1),
+    stock:z.number().min(0),
+    sku:z.string(),
+ })
+
+ const validateModelValue = (data:dataForm) => {
+    const result = modelValueShema.safeParse(data);
+    if (!result.success) {
+        return false
+      }
+       return true
+
+ }
+const FormFieldVariant = ({models,setValue}:FormFieldVariantProps) => {
+   const [modelValue,setModelValue] = useState<dataForm>({
+    original_price:0,
+    price:0,
+    stock:0,
+    sku:''
+   })
+    const { toast } = useToast()
+
+    const fieldAllDataVariant = useCallback((data: dataForm, models: Imodel[]) => {
         const newModels = models.map((model) => {
-            
-           return {
-            ...model,
-            original_price:Number(data.original_price),
-            price:Number(data.price),
-            discount:discount(data.original_price,data.price),
-            stock:Number(data.stock),
-           }
+            return {
+                ...model,
+                original_price: Number(data.original_price),
+                price: Number(data.price),
+                discount: discount(data.original_price, data.price),
+                stock: Number(data.stock),
+                sku: data?.sku ?? ''
+            }
 
         })
         return newModels
-    },[])
-    const onSubmit: SubmitHandler<dataForm>= (data:dataForm) =>{
-        if(productModels.length === 0)   return toast({
-            variant: "destructive",
-            title: "Lỗi thêm dữ liệu.",
-            description: "Bạn chưa tạo thuộc tính nào.",
-        })
-        const newVariants = fieldAllDataVariant(data,productModels)
-        dispatch(setProductModels(newVariants))
+    }, [])
+    const onSubmit = () => {
+        const check = validateModelValue(modelValue)
+        if (!check) {
+            toast({
+                variant: "destructive",
+                title: "Lỗi thêm dữ liệu.",
+                description: "Dữ liệu bạn nhập chưa phù hợp.",
+            })
+            return 
+        }
+        const newVariants = fieldAllDataVariant(modelValue, models)
+        setValue('models',newVariants)
+    }
+
+    const onChangeFieldInput = (e:React.ChangeEvent<HTMLInputElement>) => {
+        const checkName = ['original_price','price','stock']
+        const {name,value} =  e.target
+        if(checkName.includes(name)){
+            setModelValue({...modelValue,[name]:Number(value)})
+        }else{
+            setModelValue({...modelValue,[name]:value})
+        }
     }
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className='grid grid-cols-5 *:p-1 *:bg-white gap-3 *:border  mb-4' action=''>
-            <div className={`${errors?.original_price && 'border-red-500'} `}>
-                <input {...register('original_price',{required:true,min:0})} type='number' className={` w-full h-full outline-0 text-sm`} placeholder='Giá niêm yết...' />
+        <div  className='grid grid-cols-5 gap-3 mb-4'>
+            <div>
+                <span className='block text-sm'>Giá niêm yết</span>
+                <div className={` bg-white border p-1 `}>
+                    <input onChange={(e) => onChangeFieldInput(e)} name='original_price' type='number' className={` w-full h-full outline-0 text-sm`} placeholder='Giá niêm yết...' />
+                </div>
             </div>
-            <div className={`${errors?.price && 'border-red-500'} `}>
-                <input  {...register('price',{required:true,min:0})}  type='number' className='w-full h-full outline-0 text-sm' placeholder='Giá bán...' />
+            <div>
+                <span className='block text-sm'>Giá bán</span>
+                <div className={`bg-white border p-1 `}>
+                    <input  onChange={(e) => onChangeFieldInput(e)} name='price' type='number' className='w-full h-full outline-0 text-sm' placeholder='Giá bán...' />
+                </div>
             </div>
-            <div className={`${errors?.stock && 'border-red-500'} `}>
-                <input  {...register('stock',{required:true,min:0})}  type='number' className='w-full h-full outline-0 text-sm' placeholder='Số lượng...' />
+            <div>
+                <span className='block text-sm'>SL Kho</span>
+                <div className={` bg-white border p-1 `}>
+                    <input onChange={(e) => onChangeFieldInput(e)} name='stock' type='number' className='w-full h-full outline-0 text-sm' placeholder='Số lượng...' />
+                </div>
             </div>
-            <div className={`${errors?.sku && 'border-red-500'} `}>
-                <input  {...register('sku')}  type='text' className='w-full h-full outline-0 text-sm' placeholder='Sku phân loại...' />
+
+            <div>
+                <span className='block text-sm'>Sku</span>
+                <div className={` bg-white border p-1`}>
+                    <input onChange={(e) => onChangeFieldInput(e)} name='sku' type='text' className='w-full h-full outline-0 text-sm' placeholder='Sku phân loại...' />
+                </div>
             </div>
+
             <div className='bg-transparent'>
-                <button className='w-full h-full bg-black text-white'>Thêm dữ liệu</button>
+                <button onClick={() => onSubmit()} type='button' className='w-full h-full bg-black text-white'>Thêm dữ liệu</button>
             </div>
-        </form>
+        </div>
     )
 }
 

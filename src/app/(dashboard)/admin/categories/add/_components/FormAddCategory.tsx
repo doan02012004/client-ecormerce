@@ -3,34 +3,57 @@ import React, { useState } from 'react'
 import CustomFormCategory from '../../../_components/CustomFormCategory'
 import { ImageIcon, UploadIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { categoriesData } from '@/lib/data'
-import { Icategory } from '@/shemas/categories'
+import { Icategory, IcategoryForm } from '@/types/categories'
 import { useToast } from '@/hooks/use-toast'
+import { uploadImage } from '@/services/image'
+import { CustomLoading } from '@/components/web'
+import Image from 'next/image'
+import { useCategoryCreate, useCategoryQueryForm } from '@/hooks/api/category/category'
+
 
 const FormAddCategory = () => {
-    const [categories, setCategories] = useState<Icategory[]>([])
-    const [categoryForm,setCategoryForm] = useState<Icategory>({
-        name:'',
-        parent_id:'',
-        url_thumbnail:'',
-        url_path:'',
-        slug:'',
-        display_name:'',
-        type:0,
-        children:[]
+    const [loadingImage, setLoadingImage] = useState<boolean>(false)
+    const [categoriesValue, setCategoriesValue] = useState<Icategory[]>([])
+    const { categories } = useCategoryQueryForm()
+    const categoryCreateMutation = useCategoryCreate()
+    const [categoryForm, setCategoryForm] = useState<IcategoryForm>({
+        name: '',
+        parent_id: null,
+        url_thumbnail: '',
+        url_path: '',
+        display_name: '',
     })
-    const {toast} = useToast()
+    const { toast } = useToast()
 
-    const onChangeInput = (e:React.ChangeEvent<HTMLInputElement>) =>{
-        const {name,value} = e.target
+    const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target
         setCategoryForm({
             ...categoryForm,
-            [name]:value
+            [name]: value
         })
     }
 
-    const onSubmit = () =>{
-        if(categoryForm.name == '') {
+    const onHandleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        setLoadingImage(true)
+        if (e.target.files) {
+            try {
+                const file = e.target.files[0]
+                const data = await uploadImage(file)
+                if (data?.url) {
+                    setCategoryForm({
+                        ...categoryForm,
+                        url_thumbnail: data.url
+                    })
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        setLoadingImage(false)
+    }
+
+    const onSubmit = () => {
+        if (categoryForm.name == '') {
             toast({
                 variant: "destructive",
                 title: "Chưa nhập đủ thông tin",
@@ -39,10 +62,11 @@ const FormAddCategory = () => {
             })
             return
         }
-        // const newCategory = {
-        //     ...categoryForm,
-
-        // }
+        const newCategory = {
+            ...categoryForm,
+            parent_id: categoriesValue[categoriesValue.length -1]?._id ?? null
+        } as IcategoryForm
+       categoryCreateMutation.mutate(newCategory)
     }
     return (
         <div>
@@ -60,20 +84,28 @@ const FormAddCategory = () => {
                 </div>
                 <div className='flex  gap-4 group *:text-sm'>
                     <label className=' basis-36 font-semibold'>Danh mục cha</label>
-                    <CustomFormCategory max={2} data={categoriesData} value={categories} setValue={setCategories} />
+                    <CustomFormCategory max={2} data={categories} value={categoriesValue} setValue={setCategoriesValue} />
                 </div>
                 <div className='flex items-center gap-4 *:text-sm'>
                     <label className=' basis-36 font-semibold'>Ảnh danh mục</label>
                     <div className='flex gap-4'>
                         <div className='border w-32 h-36'>
-                            <ImageIcon className='w-full h-full' />
+                            {categoryForm.url_thumbnail !== '' ? (
+                                <Image className='w-full h-full object-cover' src={categoryForm.url_thumbnail} width={200} height={200} alt={categoryForm.name ?? 'ảnh danh mục'} />
+                            ) : (
+                                <ImageIcon className='w-full h-full' />
+                            )}
                         </div>
                         <div>
                             <label htmlFor="file_upload" className=' flex items-center gap-2 border py-2 px-3 cursor-pointer bg-white text-sm transition-colors ease-in-out hover:bg-primary hover:text-white'>
                                 Chọn ảnh
-                                <UploadIcon size={14} />
+                                {loadingImage ? (
+                                    <CustomLoading />
+                                ) : (
+                                    <UploadIcon size={14} />
+                                )}
                             </label>
-                            <input type="file" name="" id="file_upload" className='hidden' />
+                            <input type="file" disabled={loadingImage} onChange={(e) => onHandleUpload(e)} name="" id="file_upload" className='hidden' />
                         </div>
                     </div>
                 </div>

@@ -1,23 +1,22 @@
 import { CustomLoading } from '@/components/web'
 import { useToast } from '@/hooks/use-toast'
-import { setImagesProductOption } from '@/redux/features/productSlice'
-import { RootState } from '@/redux/store'
-import { IoptionProduct, IvalueOptionProduct } from '@/shemas/product'
+import { uploadImage } from '@/services/image'
+import { IoptionProduct, IvalueOptionProduct } from '@/types/product'
 import { ImageIcon } from 'lucide-react'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+
 
 type Props = {
     value: IvalueOptionProduct,
     option: IoptionProduct,
-    index:number
+    index:number,
+    indexOption:number,
+    update?: (index: number, value: IoptionProduct) => void
 }
 
-const ImageValueOption = ({ value,index }: Props) => {
-    const productOptions = useSelector((state: RootState) => state.product.productOptions)
+const ImageValueOption = ({ value,index,update,option,indexOption }: Props) => {
     const [loadingImage,setLoadingImage] = useState<boolean>(false)
-    const dispatch = useDispatch()
     const {toast} = useToast()
     useEffect(() => {
 
@@ -26,16 +25,16 @@ const ImageValueOption = ({ value,index }: Props) => {
         if (e.target.files) {
             setLoadingImage(true)
             const file = e.target.files[0]
-            const formData = new FormData()
-            formData.append('image', file)
             try {
-                const res = await fetch(`http://localhost:8000/api/v1/images/upload`, {
-                    method: 'POST',
-                    body: formData,
-                })
-                const data = await res.json()
+                
+                const data = await uploadImage(file)
                 if (data?.url) {
-                    dispatch(setImagesProductOption({index:index,image:data.url}))
+                    if(update){
+                        update(indexOption,{
+                            ...option,
+                            values:option.values.map((val,i) =>i == index ? {...val,image:data.url} : val )
+                        })
+                    }
                 }
             } catch (error) {
                toast({
@@ -48,17 +47,16 @@ const ImageValueOption = ({ value,index }: Props) => {
             setLoadingImage(false)
         }
     }
-    console.log(productOptions)
     return (
         <div className='flex flex-col items-center gap-1'>
-            <label className=' relative size-14 bg-white border rounded-md flex items-center justify-center cursor-pointer hover:border-blue-500' htmlFor={`upload-images-value-${value?._id}`}>
+            <label className=' relative size-14 bg-white border rounded-md flex items-center justify-center cursor-pointer hover:border-blue-500' htmlFor={`upload-images-value-${value?.id}`}>
                 {value.image ? (
                     <div className='w-full h-full overflow-hidden'>
                         <Image src={value?.image ?? ''} width={100} height={100} className=' object-cover h-full w-full' alt='ảnh' />
                     </div>
                 ) : (
                     <>
-                        <input onChange={onChangeImageFile} type="file" className='hidden' id={`upload-images-value-${value?._id}`} />
+                     
                         <div className='flex flex-col items-center gap-2'>
                         {loadingImage ? (
                                     <CustomLoading />
@@ -68,6 +66,7 @@ const ImageValueOption = ({ value,index }: Props) => {
                         </div>
                     </>
                 )}
+                   <input onChange={(e) => onChangeImageFile(e)} type="file" className='hidden' id={`upload-images-value-${value?.id}`} />
             </label>
             <span className='line-clamp-1 text-xs  max-w-24'>{value?.label}</span>
         </div>

@@ -3,6 +3,7 @@ import "./globals.css";
 import AppProvider from "./AppProvider";
 import { Roboto } from "next/font/google";
 import StoreProvider from "@/redux/StoreProvider";
+import ProviderReactQuery from "@/utils/client/ProviderReactQuery";
 
 
 const roboto = Roboto({
@@ -25,11 +26,13 @@ export default function RootLayout({
       <body
         className={`${roboto.className} antialiased`}
       >
-        <StoreProvider>
-          <AppProvider>
-            {children}
-          </AppProvider>
-        </StoreProvider>
+        <ProviderReactQuery>
+          <StoreProvider>
+            <AppProvider>
+              {children}
+            </AppProvider>
+          </StoreProvider>
+        </ProviderReactQuery>
       </body>
     </html>
   );

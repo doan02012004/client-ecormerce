@@ -5,8 +5,8 @@ import { CategoriesList, CategoriesRoadMap } from './_components'
 const CategoriesPage = () => {
   return (
     <>
-    <CategoriesRoadMap />
-    <CategoriesList />
+      <CategoriesRoadMap />
+      <CategoriesList />
     </>
   )
 }

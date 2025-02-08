@@ -1,4 +1,4 @@
-import { Imodel, IoptionProduct, Iproduct, IproductAtrribute } from "@/shemas/product";
+import { Imodel, IoptionProduct, Iproduct, IproductAtrribute } from "@/types/product";
 import { genarateId } from "@/utils/client/main";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -8,9 +8,7 @@ const initialState = {
         categories:[],
         description:'',
         images:[],
-        type: 'configurable',
-        original_price:0,
-        price:0
+        type: 'simple',
     } as Iproduct,
     productOptions:[
         {
@@ -26,7 +24,16 @@ const initialState = {
             ]
         }
     ] as IoptionProduct[],
-    productModels:[] as Imodel[],
+    productModels:[
+        {
+            image:'',
+            original_price:0,
+            price:0,
+            stock:0,
+            name:'Mặc định',
+            sku:''
+        }
+    ] as Imodel[],
     productAttributes: [] as IproductAtrribute[],
     productShip:{
         weight:0,
@@ -59,12 +66,12 @@ const productSlice = createSlice({
         setProductShip: (state,action) =>{
             state.productShip = action.payload
         },
-        setProductImages:(state,action) =>{
+        setAddProductImages:(state,action) =>{
             state.productInfor.images.push(action.payload)
         },
     }
 })
 
-export const {setProductInfor,setProductOptions,setImagesProductOption, setProductModels, setProductAttributes, setProductShip,setProductImages} = productSlice.actions
+export const {setProductInfor,setProductOptions,setImagesProductOption, setProductModels, setProductAttributes, setProductShip,setAddProductImages} = productSlice.actions
  
 export default productSlice.reducer

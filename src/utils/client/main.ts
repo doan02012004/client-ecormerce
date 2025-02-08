@@ -1,4 +1,4 @@
-import { Imodel, IoptionProduct, Iproduct } from "@/shemas/product"
+import { Imodel, IoptionProduct, Iproduct } from "@/types/product"
 
 
 export const genarateId = () => {
@@ -58,5 +58,8 @@ export const checkDataProductModels= (data: Imodel[]) => {
   }
 
   return true
+}
+export const defaultImage = () =>{
+  return '/assets/images/images.png'
 }
 
