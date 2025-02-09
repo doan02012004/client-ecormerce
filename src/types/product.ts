@@ -18,9 +18,15 @@ export interface Imodel {
     _id?:string,
     name:string,
     original_price:number,
+    discount:number,
     price:number,
     image:string,
     stock:number,
+    volume:number,
+    weight:number,
+    height:number,
+    width:number,
+    length:number,
     sku?:string
 }
 
@@ -30,6 +36,11 @@ export interface IproductAtrribute {
     value:string
 }
 
+export interface Iattribute {
+    id?:string,
+    name:string,
+    value:string,
+}
 export interface Iproduct {
     name:string,
     description:string,
@@ -40,4 +51,11 @@ export interface Iproduct {
     images:{url:string}[],
     options?: IoptionProduct[]|[],
     models?:Imodel[] | [],
+    attributes:Iattribute[]|[],
+    volume:number,
+    weight:number,
+    height:number,
+    width:number,
+    length:number,
 }
+

@@ -2,7 +2,7 @@
 
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import CategoriesItem from './CategoriesItem'
-import { useCategoryQuery } from '@/hooks/api/category/category'
+import { useCategoryQuery } from '@/hooks/api/category'
 import { CustomLoading } from '@/components/web'
 import { useSearchParams } from 'next/navigation'
 

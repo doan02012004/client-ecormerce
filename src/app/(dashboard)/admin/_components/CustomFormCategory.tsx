@@ -1,4 +1,5 @@
 'use client'
+import { TypeCategories, TypeCategory } from '@/schemas/category'
 import { Icategory } from '@/types/categories'
 import { ChevronRightIcon, X } from 'lucide-react'
 import React, { Dispatch, SetStateAction, useState } from 'react'
@@ -8,7 +9,7 @@ type Props = {
     data: Icategory[],
     max?: 2 | 3,
     value: Icategory[],
-    setValue: Dispatch<SetStateAction<Icategory[]>>|any
+    setValue: Dispatch<SetStateAction<Icategory>>|any
 }
 
 const CustomFormCategory = ({ data, max = 3, value = [], setValue }: Props) => {

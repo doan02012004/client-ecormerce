@@ -1,15 +1,14 @@
 import React from 'react'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
-
-import { Imodel, Iproduct } from '@/types/product'
+import { TypeProduct, TypeProductModel } from '@/schemas/product'
 
 
 
 type VariantItemProps  ={
-    model:Imodel,
+    model:TypeProductModel,
     index:number,
-    register:UseFormRegister<Iproduct>,
-    errors:FieldErrors<Iproduct>
+    register:UseFormRegister<TypeProduct>,
+    errors:FieldErrors<TypeProduct>
 }
 
 const VariantItem = ({model,index,register,errors}:VariantItemProps) => {

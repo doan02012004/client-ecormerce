@@ -23,8 +23,8 @@ const AppSidebar = () => {
                 url: "/admin/categories",
               },
               {
-                title: "Thương hiệu",
-                url: "#",
+                title: "Thông tin chi tiết",
+                url: "/admin/optionals",
               },
             ],
           },

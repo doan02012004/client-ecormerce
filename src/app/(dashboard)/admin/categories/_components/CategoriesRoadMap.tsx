@@ -1,6 +1,6 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import { useCategoryQueryPath } from '@/hooks/api/category/category'
+import { useCategoryQueryPath } from '@/hooks/api/category'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import React from 'react'

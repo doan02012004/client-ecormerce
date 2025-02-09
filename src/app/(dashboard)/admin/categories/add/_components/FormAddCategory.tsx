@@ -8,7 +8,7 @@ import { useToast } from '@/hooks/use-toast'
 import { uploadImage } from '@/services/image'
 import { CustomLoading } from '@/components/web'
 import Image from 'next/image'
-import { useCategoryCreate, useCategoryQueryForm } from '@/hooks/api/category/category'
+import { useCategoryCreate, useCategoryQueryForm } from '@/hooks/api/category'
 
 
 const FormAddCategory = () => {

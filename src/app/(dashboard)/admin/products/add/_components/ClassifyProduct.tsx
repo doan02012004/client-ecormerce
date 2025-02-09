@@ -7,6 +7,7 @@ import React from 'react'
 import ImageValueOption from './ImageValueOption'
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form'
 import { genarateId } from '@/utils/client/main'
+import { TypeProductOption, TypeProductOptions } from '@/schemas/product'
 
 
 
@@ -16,7 +17,7 @@ const ClassifyProduct = () => {
     const optionsWatch = useWatch({
         name: "options",
         control
-      }) as IoptionProduct[]
+      }) as TypeProductOptions
     const { fields: options, remove, append, update } = useFieldArray({
         name: 'options',
         control
@@ -48,7 +49,7 @@ const ClassifyProduct = () => {
     }
 
     // hàm xóa giá trị
-    const onRemoveValue = (indexOption: number, indexValue: number, option: IoptionProduct) => {
+    const onRemoveValue = (indexOption: number, indexValue: number, option: TypeProductOption) => {
         if (option.values.length == 1) {
             toast({
                 variant: "destructive",
@@ -65,7 +66,7 @@ const ClassifyProduct = () => {
     }
 
     // hàm thêm giá trị
-    const onAddValue = (indexOption: number, option: IoptionProduct) =>{
+    const onAddValue = (indexOption: number, option: TypeProductOption) =>{
        option.values.push({
             image:'',
             label:'',
@@ -80,7 +81,7 @@ const ClassifyProduct = () => {
                 Phân loại
             </div>
             <div className='*:mb-8'>
-                {controlledFields?.map((item: IoptionProduct, index: number) => {
+                {controlledFields?.map((item: TypeProductOption, index: number) => {
                     return (
                         <div key={item.id} className='bg-gray-200 border px-3 pt-8 pb-4 relative *:mb-4'>
                             {index > 0 && (<X onClick={() => remove(index)} className=' absolute right-1 top-1 cursor-pointer hover:text-red-500' />)}

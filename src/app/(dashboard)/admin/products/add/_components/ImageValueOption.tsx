@@ -1,5 +1,6 @@
 import { CustomLoading } from '@/components/web'
 import { useToast } from '@/hooks/use-toast'
+import { TypeProductOption, TypeProductValueOption } from '@/schemas/product'
 import { uploadImage } from '@/services/image'
 import { IoptionProduct, IvalueOptionProduct } from '@/types/product'
 import { ImageIcon } from 'lucide-react'
@@ -8,11 +9,11 @@ import React, { useEffect, useState } from 'react'
 
 
 type Props = {
-    value: IvalueOptionProduct,
-    option: IoptionProduct,
+    value: TypeProductValueOption,
+    option: TypeProductOption,
     index:number,
     indexOption:number,
-    update?: (index: number, value: IoptionProduct) => void
+    update?: (index: number, value: TypeProductOption) => void
 }
 
 const ImageValueOption = ({ value,index,update,option,indexOption }: Props) => {

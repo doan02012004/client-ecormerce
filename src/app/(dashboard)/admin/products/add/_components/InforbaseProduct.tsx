@@ -1,7 +1,7 @@
 'use client'
 
 import { CustomLoading } from '@/components/web';
-import { useCategoryQueryForm } from '@/hooks/api/category/category';
+import { useCategoryQueryForm } from '@/hooks/api/category';
 import { uploadImage } from '@/services/image';
 import { ImageIcon, X } from 'lucide-react';
 import dynamic from 'next/dynamic';
@@ -11,15 +11,15 @@ import 'react-quill/dist/quill.snow.css';
 import CustomFormCategory from '../../../_components/CustomFormCategory';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { Icategory } from '@/types/categories';
-import { Iproduct } from '@/types/product';
 import { genarateId } from '@/utils/client/main';
+import { TypeProduct } from '@/schemas/product';
 
 
 // Dynamic import để vô hiệu hóa SSR
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const InforbaseProduct = () => {
-    const { register, formState:{errors}, watch, setValue, control } = useFormContext<Iproduct>()
+    const { register, formState:{errors}, watch, setValue, control } = useFormContext<TypeProduct>()
     const { categories } = useCategoryQueryForm()
     const [maxImage,] = useState<number>(9);
     const [loadingImages, setLoadingImages] = useState<boolean>(false)
@@ -62,6 +62,13 @@ const InforbaseProduct = () => {
                     original_price:0,
                     price:0,
                     stock:0,
+                    discount:0,
+                    height:0,
+                    length:0,
+                    volume:0,
+                    weight:0,
+                    width:0,
+                    combinations:[],
                     sku:''
                 }
             ])
@@ -87,7 +94,7 @@ const InforbaseProduct = () => {
             return
         }
     }
-
+    
     return (
         <div className='px-2 py-4 rounded-lg bg-white'>
             {/* header  */}

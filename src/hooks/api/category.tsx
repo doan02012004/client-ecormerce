@@ -112,7 +112,6 @@ export const useCategoryCreate = () =>{
             },
             onSettled: (_, error) => {
                 if(error){
-                    console.log('Error')
                     toast({
                         variant: "destructive",
                         title: "Chưa nhập đủ thông tin",
