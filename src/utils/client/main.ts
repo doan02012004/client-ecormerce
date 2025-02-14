@@ -63,3 +63,8 @@ export const defaultImage = () =>{
   return '/assets/images/images.png'
 }
 
+export const formatPrice = (price:number) =>{
+  if(!price) return `0 đ`
+  return `${price.toLocaleString('vi-VN')} đ`
+}
+

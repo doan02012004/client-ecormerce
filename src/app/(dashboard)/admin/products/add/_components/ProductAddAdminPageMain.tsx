@@ -48,11 +48,7 @@ const ProductAddAdminPageMain = () => {
                 }
             ],
             attributes: [],
-            volume: 0,
-            weight: 0,
-            height: 0,
-            width: 0,
-            length: 0,
+            weight: 0
         }
     })
 

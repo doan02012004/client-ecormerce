@@ -1,5 +1,5 @@
 import React from 'react'
-import Product from '../Product'
+import Product from '../../../../components/web/product/Product'
 import { Button } from '@/components/ui/button'
 
 const ContentSuggesstion = () => {

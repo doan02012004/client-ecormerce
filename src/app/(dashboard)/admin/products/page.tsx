@@ -1,9 +1,11 @@
 import { Input } from '@/components/ui/input'
 import { SearchIcon } from 'lucide-react'
 import React from 'react'
-import { CategoryFillter, TableProductItem } from './_components'
-import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { CategoryFillter } from './_components'
+
 import { Button } from '@/components/ui/button'
+
+import ContentProductAdminPage from './_components/ContentProductAdminPage'
 
 
 const ProductAdminPage = () => {
@@ -21,26 +23,7 @@ const ProductAdminPage = () => {
                 <a href="/admin/products/add"><Button>Thêm sản phẩm</Button></a>
             </div>
             {/* content  */}
-            <div className='min-h-screen bg-white rounded-lg p-2'>
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>Product</TableHead>
-                            <TableHead>Category</TableHead>
-                            <TableHead>Option</TableHead>
-                            <TableHead>Stock</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead>Actions</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                       <TableProductItem />
-                       <TableProductItem />
-                       <TableProductItem />
-                       <TableProductItem />
-                    </TableBody>
-                </Table>
-            </div>
+            <ContentProductAdminPage />
         </div>
     )
 }

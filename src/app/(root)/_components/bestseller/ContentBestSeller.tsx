@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 // Import Swiper styles
 import "swiper/css";
 
-import Product from '../Product'
+import Product from '../../../../components/web/product/Product'
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Navigation } from 'swiper/modules';
 

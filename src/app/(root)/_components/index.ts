@@ -1,5 +1,5 @@
 import Header from "./Header";
-import Product from "./Product";
+import Product from "../../../components/web/product/Product";
 import CustomCard from "./CustomCard";
 import Booking from "./Booking";
 import Banner from "./banner/Banner";
