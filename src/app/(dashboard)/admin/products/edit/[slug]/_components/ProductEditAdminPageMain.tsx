@@ -42,7 +42,7 @@ const ProductEditAdminPageMain = ({product}:ProductEditAdminPageMainProps) => {
     //    }
        updateProductMutation.mutate(data)
     }
-    
+    console.log(method.formState.errors)
     return (
         <div>
             {updateProductMutation.isPending && (

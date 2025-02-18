@@ -3,7 +3,7 @@ import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { Metadata } from 'next';
 import React from 'react'
 import { AppSidebar, HeaderAdmin } from './_components';
-import { Toaster } from '@/components/ui/toaster';
+
 
 type AdminLayoutProps = {
     children: React.ReactNode
@@ -21,7 +21,6 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
                 <HeaderAdmin />
                 <div className='p-4 min-h-screen bg-gray-100'>
                     {children}
-                    <Toaster />
                 </div>
             </SidebarInset>
         </SidebarProvider>

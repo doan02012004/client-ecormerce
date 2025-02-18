@@ -3,7 +3,7 @@ import React from 'react'
 import Rate from '@/components/web/Rate'
 import Link from 'next/link'
 import { TypeProductComponent } from '@/schemas/product'
-import { formatPrice } from '@/utils/client/main'
+import { formatPrice } from '@/utils/main'
 
 type ProductProps = {
   product:TypeProductComponent

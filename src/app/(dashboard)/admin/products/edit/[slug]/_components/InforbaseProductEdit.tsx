@@ -10,7 +10,7 @@ import React, { useState } from 'react'
 import 'react-quill/dist/quill.snow.css';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { Icategory } from '@/types/categories';
-import { genarateId } from '@/utils/client/main';
+import { genarateId } from '@/utils/main';
 import { TypeProduct } from '@/schemas/product';
 import CustomFormCategory from '@/app/(dashboard)/admin/_components/CustomFormCategory';
 

@@ -11,7 +11,7 @@ import InforbaseProduct from './InforbaseProduct'
 import CreateProduct from './CreateProduct'
 import { productSchema, TypeProduct } from '@/schemas/product';
 import ConfigurationProduct from './ConfigurationProduct';
-import { discount } from '@/utils/client/main';
+import { discount } from '@/utils/main';
 import InforDetailProduct from './InforDetailProduct';
 import InforShipProduct from './InforShipProduct';
 import { z } from 'zod';
@@ -44,7 +44,8 @@ const ProductAddAdminPageMain = () => {
                     discount: discount(0, 0),
                     price: 0,
                     stock: 0,
-                    sku: ''
+                    sku: '',
+                    weight: 0
                 }
             ],
             attributes: [],
@@ -57,7 +58,7 @@ const ProductAddAdminPageMain = () => {
     const onSubmit = (data: z.infer<typeof productSchema>) => {
         createProductMutation.mutate(data)
     }
-
+    
     return (
         <div>
             {createProductMutation.isPending && (

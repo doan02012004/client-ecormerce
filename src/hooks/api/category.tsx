@@ -114,8 +114,8 @@ export const useCategoryCreate = () =>{
                 if(error){
                     toast({
                         variant: "destructive",
-                        title: "Chưa nhập đủ thông tin",
-                        description: "Bạn cần nhập đủ thông tin để thêm option mới",
+                        title: "Thêm danh mục",
+                        description: "Lỗi thêm danh mục",
                         duration: 3000
                     })
                 }else{

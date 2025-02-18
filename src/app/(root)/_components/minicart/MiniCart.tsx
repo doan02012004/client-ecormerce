@@ -1,17 +1,27 @@
 'use client'
-import { useAppContext } from '@/app/AppProvider'
 import { Button } from '@/components/ui/button'
 import { ShoppingBag, X } from 'lucide-react'
 import React, { useCallback, useEffect, useRef } from 'react'
 import ProductCartItem from './ProductCartItem'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import useCartStore from '@/zustand/cartStore'
+import { useCartQuery } from '@/hooks/api/cart'
+import { formatPrice } from '@/utils/main'
 
 const MiniCart = () => {
     const path = usePathname()
     const divBgMiniCart = useRef<HTMLDivElement | null>(null)
     const divContentMiniCart = useRef<HTMLDivElement | null>(null)
-    const { openMiniCart, setOpenMiniCart } = useAppContext()
+    const {openMiniCart,setOpenMiniCart,cart,setCart} = useCartStore()
+    const cartQuery = useCartQuery()
+
+    useEffect(() => {
+        if(cartQuery.data){
+            setCart(cartQuery.data)
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[cartQuery.data])
     const disPlayMiniCart = useCallback((backgroud: HTMLDivElement, content: HTMLDivElement, openMiniCart: boolean) => {
         if (openMiniCart === true) {
             backgroud.style.inset = '0';
@@ -34,7 +44,8 @@ const MiniCart = () => {
         if (divContentMiniCart.current && !divContentMiniCart.current.contains(event.target as Node) === true) {
             setOpenMiniCart(false)
         }
-    }, [setOpenMiniCart])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     // xử lý logic ẩn hiện mini Booking
     useEffect(() => {
@@ -62,11 +73,13 @@ const MiniCart = () => {
        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[path])
+
+    console.log(cart)
     return (
         <>
             <div onClick={() => setOpenMiniCart(true)} className='relative size-10 cursor-pointer  rounded-full flex justify-center items-center border transition duration-300 ease-in-out hover:shadow hover:shadow-gray-300'>
                 <ShoppingBag className=' cursor-pointer transition duration-300 ease-in-out hover:text-indigo-800' />
-                <span className=' absolute -top-2 -right-1 text-sm font-semibold text-red-600'>0</span>
+                <span className=' absolute -top-2 -right-1 text-sm font-semibold text-red-600'>{cart.items.length}</span>
             </div>
 
             {/* fixed booking  */}
@@ -77,21 +90,20 @@ const MiniCart = () => {
                         <X onClick={() => setOpenMiniCart(false)} className='mt-2 ml-3 cursor-pointer mb-4 hover:text-red-600' />
                         <div className='flex justify-between items-center px-3'>
                             <h3 className=' text-lg font-bold uppercase'>GIỎ HÀNG</h3>
-                            <span className='block text-red-600 font-semibold'>0</span>
+                            <span className='block text-red-600 font-semibold'>{cart.items.length}</span>
                         </div>
                     </div>
                     <hr />
                     {/* body  */}
                     <div className='my-3 flex flex-col gap-3 h-[470px] lg:h-[500px] overflow-y-auto px-3'>
-                        <ProductCartItem />
-                        <ProductCartItem />
-                        <ProductCartItem />
-                        <ProductCartItem />
+                        {cart.items.map((item) => (
+                            <ProductCartItem key={item._id} cart={item} />
+                        ))}
                     </div>
                     <div className='px-3'>
                         <div className='flex justify-between items-center mb-5'>
                             <span className='text-sm font-semibold'>Tạm tính:</span>
-                            <span className='text-sm font-semibold'>1.000.000đ</span>
+                            <span className='text-sm font-semibold'>{formatPrice(cart.total)}</span>
                         </div>
                        <Link href={'/cart'}> <Button className='w-full py-5 uppercase'>Xem Giỏ Hàng</Button></Link>
                     </div>

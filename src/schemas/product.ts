@@ -25,7 +25,7 @@ export const productModelSchema = z.object({
     combinations:z.array(z.object({
         name:z.string(),
         value:z.string()
-    })).optional(),
+    })),
     sku: z.string(),
     discount: z.number().min(0),
     // height: z.number().min(0),
@@ -102,9 +102,10 @@ const productOptionEditAdminSchema = productOptionSchema.omit({values:true}).ext
         _id:z.string(),
     }))
 })
-const productModelEditAdminSchema = productModelSchema.extend({
+const productModelEditAdminSchema = productModelSchema.omit({name:true}).extend({
     _id:z.string().optional(),
-    product_id:z.string()
+    product_id:z.string(),
+    name:z.string()
 })
 
 export const productOptionsEditAdminSchema = z.array(productOptionEditAdminSchema)
@@ -146,6 +147,16 @@ export const productComponentShema =  productSchema.pick({
 
 export type TypeProductComponent = z.infer<typeof productComponentShema>;
 
+// schema /sanpham/:slug
+
+export const productDetailComponent = productEditAdminShema.extend({
+    rate:z.number(),
+    original_price: z.number(),
+    price: z.number(),
+    discount:z.number()
+})
+
+export type TypeProductDetail = z.infer<typeof productDetailComponent>
 
 // export const progressInforProduct = productSchema.pick({name:true})
 // export type PickedProgressInforProduct = z.infer<typeof progressInforProduct>;

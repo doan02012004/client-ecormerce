@@ -1,3 +1,4 @@
+'use client'
 import { TypeProduct, TypeProductComponent, TypeProductEdit } from "@/schemas/product";
 import { CreateProduct, GetAllProductsQuickView, IQueryGetAllProductsQuickView, UpdateProduct } from "@/services/product";
 import { MutationKey, QueryKey, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";

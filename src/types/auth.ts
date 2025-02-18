@@ -19,3 +19,13 @@ export const loginSchema = z.object({
         message: "Mật khẩu ít nhất 6 ký tự .",
     }),
 })
+
+export type SessionPayload = {
+    user:{
+        _id:string,
+        name:string,
+        role:string
+    },
+    accessToken:string,
+    refreshToken:string
+}

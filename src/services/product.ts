@@ -1,5 +1,6 @@
 import { TypeProduct, TypeProductEdit } from "@/schemas/product";
-import { instance } from "@/utils/client/config";
+import { instance } from "@/utils/config";
+import { AxiosResponse } from "axios";
 
 export const CreateProduct = async(data:TypeProduct) => {
     try {
@@ -35,6 +36,15 @@ export const GetProductAdminBySlug = async(slug:string) => {
   try {
     const result = await instance.get(`/products/admin/slug/${slug}`)
     return result
+  } catch (error) {
+    return error
+  }
+}
+
+export const GetProductWebBySlug = async(slug:string) => {
+  try {
+    const result = await instance.get(`/products/web/slug/${slug}`) 
+    return result as AxiosResponse
   } catch (error) {
     return error
   }

@@ -14,19 +14,21 @@ export interface IvalueOptionProduct {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     image:any
 }
+
+export interface Icombinations {
+    name:string,
+    value:string
+} 
 export interface Imodel {
     _id?:string,
     name:string,
+    combinations:Icombinations[]
     original_price:number,
     discount:number,
     price:number,
     image:string,
     stock:number,
-    volume:number,
     weight:number,
-    height:number,
-    width:number,
-    length:number,
     sku?:string
 }
 
@@ -41,21 +43,22 @@ export interface Iattribute {
     name:string,
     value:string,
 }
-export interface Iproduct {
+
+export interface Iproductbase {
+    _id:string,
     name:string,
     description:string,
     categories:Icategory[],
     type:'configurable'|'simple',
     status:boolean,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     images:{url:string}[],
+    weight:number,
+
+} 
+export interface Iproduct extends Iproductbase  {
     options?: IoptionProduct[]|[],
     models?:Imodel[] | [],
     attributes:Iattribute[]|[],
-    volume:number,
     weight:number,
-    height:number,
-    width:number,
-    length:number,
 }
 

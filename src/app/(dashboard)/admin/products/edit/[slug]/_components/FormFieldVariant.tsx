@@ -1,7 +1,7 @@
 'use client'
 import { useToast } from '@/hooks/use-toast'
 import { TypeProductEdit, TypeProductModelsEdit } from '@/schemas/product'
-import { discount } from '@/utils/client/main'
+import { discount } from '@/utils/main'
 import React, { useCallback, useState } from 'react'
 import { UseFormSetValue } from 'react-hook-form'
 import { z } from 'zod'

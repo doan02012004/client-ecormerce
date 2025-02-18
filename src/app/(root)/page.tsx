@@ -1,14 +1,14 @@
-import React from 'react'
-import { Banner, BestSeller, CategoriesHome, Suggesstion } from './_components'
 
+import React from 'react'
+import { Banner,Suggesstion } from './_components'
 
 
 const HomePage = () => {
   return (
     <div className='container'>
       <Banner />
-      <CategoriesHome />
-      <BestSeller />
+      {/* <CategoriesHome />
+      <BestSeller /> */}
       <Suggesstion />
     </div>
   )

@@ -5,7 +5,7 @@ import React, { useMemo } from 'react'
 
 import ImageValueOption from './ImageValueOption'
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form'
-import { genarateId } from '@/utils/client/main'
+import { genarateId } from '@/utils/main'
 import { TypeProductEdit, TypeProductOptionEdit, TypeProductOptionsEdit } from '@/schemas/product'
 
 

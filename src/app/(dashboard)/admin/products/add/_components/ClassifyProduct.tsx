@@ -1,12 +1,12 @@
 
 import { useToast } from '@/hooks/use-toast'
-import { IoptionProduct, Iproduct } from '@/types/product'
+import { Iproduct } from '@/types/product'
 import { Plus, X } from 'lucide-react'
 import React from 'react'
 
 import ImageValueOption from './ImageValueOption'
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form'
-import { genarateId } from '@/utils/client/main'
+import { genarateId } from '@/utils/main'
 import { TypeProductOption, TypeProductOptions } from '@/schemas/product'
 
 

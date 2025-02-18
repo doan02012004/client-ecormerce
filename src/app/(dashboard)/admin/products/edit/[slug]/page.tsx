@@ -2,7 +2,7 @@ import React from 'react'
 
 import { redirect } from 'next/navigation'
 import ProductEditAdminPageMain from './_components/ProductEditAdminPageMain'
-import { instance } from '@/utils/client/config'
+import { instance } from '@/utils/config'
 
 const ProductEditPage = async ({
   params,

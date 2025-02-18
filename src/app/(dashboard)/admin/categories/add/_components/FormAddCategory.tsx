@@ -53,6 +53,7 @@ const FormAddCategory = () => {
     }
 
     const onSubmit = () => {
+        console.log(categoryForm)
         if (categoryForm.name == '') {
             toast({
                 variant: "destructive",
@@ -113,7 +114,7 @@ const FormAddCategory = () => {
             <div className='flex flex-col bg-white p-2 border sticky bottom-0'>
                 <div className=' self-end flex items-center gap-6 '>
                     <Button variant={'secondary'}>Quay lại</Button>
-                    <Button onClick={onSubmit}>Tạo mới</Button>
+                    <Button onClick={() => onSubmit()}>Tạo mới</Button>
                 </div>
             </div>
         </div>

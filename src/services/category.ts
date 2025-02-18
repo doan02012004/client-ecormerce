@@ -1,6 +1,6 @@
 import { Icategory, IcategoryForm } from "@/types/categories"
 import { Ipaginate } from "@/types/main"
-import { instance } from "@/utils/client/config"
+import { instance } from "@/utils/config"
 
 export const getCategoriesForm = async() => {
     try {
@@ -45,14 +45,8 @@ export const getCategoryBySlug = async(slug:string|null) => {
 
 export const createCategory = async(data:IcategoryForm) => {
     try {
-        const result = await fetch(`${instance}/categories`,{
-            method:'POST',
-            headers:{
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data)
-        })
-        return result.json()
+        const result = await instance.post(`/categories`,data)
+        return result.data
     } catch (error) {
         console.log(error)
     }

@@ -3,7 +3,7 @@ import React, { useCallback, useEffect } from 'react'
 import VariantItem from './VariantItem'
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form'
 import FormFieldVariant from './FormFieldVariant'
-import { discount } from '@/utils/client/main'
+import { discount } from '@/utils/main'
 import { TypeProduct, TypeProductModels, TypeProductOptions } from '@/schemas/product'
 
 
@@ -48,12 +48,8 @@ const VariantsProduct = () => {
                             original_price: 0,
                             price: 0,
                             stock: 0,
-                            height: 0,
-                            volume: 0,
                             weight: 0,
-                            width: 0,
                             sku: '',
-                            length: 0
                         })
                     }
                 }
@@ -85,12 +81,8 @@ const VariantsProduct = () => {
                                 discount: 0,
                                 image: value1.image,
                                 stock: 0,
-                                height: 0,
-                                volume: 0,
                                 weight: 0,
-                                width: 0,
                                 sku: '',
-                                length: 0
                             })
                         }
                     }

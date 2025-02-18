@@ -11,7 +11,7 @@ import 'react-quill/dist/quill.snow.css';
 import CustomFormCategory from '../../../_components/CustomFormCategory';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { Icategory } from '@/types/categories';
-import { genarateId } from '@/utils/client/main';
+import { genarateId } from '@/utils/main';
 import { TypeProduct } from '@/schemas/product';
 
 
@@ -63,11 +63,7 @@ const InforbaseProduct = () => {
                     price:0,
                     stock:0,
                     discount:0,
-                    height:0,
-                    length:0,
-                    volume:0,
                     weight:0,
-                    width:0,
                     combinations:[],
                     sku:''
                 }

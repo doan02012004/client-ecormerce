@@ -1,5 +1,6 @@
 import { Imodel, IoptionProduct, Iproduct } from "@/types/product"
-
+import { sortBy } from "lodash"
+import isEqual from 'lodash/isEqual'
 
 export const genarateId = () => {
   return `id-${Date.now()}`
@@ -67,4 +68,12 @@ export const formatPrice = (price:number) =>{
   if(!price) return `0 đ`
   return `${price.toLocaleString('vi-VN')} đ`
 }
+
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const isSameArray = (arr1:any,arr2:any,key:string[]) => {
+  const check = isEqual(sortBy(arr1,key),sortBy(arr2,key))
+  return check
+}
+
 

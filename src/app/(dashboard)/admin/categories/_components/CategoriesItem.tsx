@@ -1,6 +1,6 @@
 import { TableCell, TableRow } from '@/components/ui/table'
 import { Icategory } from '@/types/categories'
-import { defaultImage } from '@/utils/client/main'
+import { defaultImage } from '@/utils/main'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
