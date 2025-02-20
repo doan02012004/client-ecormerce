@@ -3,7 +3,7 @@ import React from 'react'
 
 const ShippingMethodItem = () => {
     return (
-        <div className=' cursor-pointer px-4 p-2 border rounded-md bg-blue-50 hover:shadow hover:shadow-blue-100'>
+        <div className=' cursor-pointer px-4 p-2 border rounded bg-blue-50 hover:shadow hover:shadow-blue-100'>
             <div className='mb-1 flex items-center justify-between'>
                 <h5 className='text-base'>Giao hàng tiết kiệm</h5>
                 <div className='w-fit px-2 py-1 border bg-white text-xs'>

@@ -3,11 +3,11 @@ import React from 'react'
 
 const ShippingAddress = () => {
     return (
-        <div className='p-4 rounded-lg bg-white mb-4'>
+        <div className='p-4 rounded bg-white mb-4'>
             {/* header  */}
             <div className='flex items-center gap-3 mb-3'>
                 <MapPin size={24} className='text-red-500' />
-                <h3 className='font-semibold text-lg '>Địa chỉ giao hàng</h3>
+                <h3 className='font-medium text-lg '>Địa chỉ giao hàng</h3>
             </div>
             {/* content  */}
             <div className='flex justify-between '>

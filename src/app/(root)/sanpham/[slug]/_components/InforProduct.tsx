@@ -11,6 +11,7 @@ import { TypeProductDetail, TypeProductModelEdit, TypeProductModelsEdit, TypePro
 import { formatPrice, isSameArray } from '@/utils/main'
 import InputStockProductDetail from './InputStockProductDetail'
 import { useToast } from '@/hooks/use-toast'
+import { useCartAdd } from '@/hooks/api/cart'
 
 
 type InforProductProps = {
@@ -68,6 +69,8 @@ const InforProduct = ({ product }: InforProductProps) => {
             return null
         }
     })
+
+    const AddToCartMutation = useCartAdd()
 
     // Tìm variant bằng selectVariant (khi người dùng nhấp chọn thuộc tính)
     const onFindVariant = (models: TypeProductModelsEdit, selectVariant: TypeProductModelEdit | null, selectOptions: selectOption[]) => {
@@ -175,11 +178,12 @@ const InforProduct = ({ product }: InforProductProps) => {
             })
         }
 
-        return toast({
-            variant: 'default',
-            title: 'Thêm giỏ hàng',
-            description: "Thêm giỏ hàng thành công !"
-        })
+        const data = {
+            product_id:product._id,
+            variant_id: selectVariant?._id ?? '',
+            quantity:Number(inputRef.current.value)
+        }
+        AddToCartMutation.mutate(data)
     }
 
     return (

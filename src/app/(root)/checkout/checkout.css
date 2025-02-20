@@ -1,0 +1,3 @@
+.grid-cart{
+    @apply grid grid-cols-[auto_20px] gap-4 md:grid-cols-[auto_150px_100px_100px]  lg:grid-cols-[auto_150px_80px_120px] lg:gap-6 items-center
+}

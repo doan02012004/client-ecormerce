@@ -6,7 +6,8 @@ export interface IcartItem {
     total:number,
     quantity:number,
     product_id: Iproductbase|null,
-    variant_id: IvariantCart|null
+    variant_id: IvariantCart|null,
+    url_path:string
 }
 
 export interface Icart {
