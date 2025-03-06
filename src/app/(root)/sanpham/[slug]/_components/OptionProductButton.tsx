@@ -1,21 +1,22 @@
 import Image from 'next/image'
 import React from 'react'
 import { SelectedTick } from '@/components/web'
-import { TypeProductModelEdit, TypeProductValueOptionEdit } from '@/schemas/product'
 import { useProductPageContext } from '@/app/AppProvider'
+import { ImodelProductData, IOptionProductValueData } from '@/types/product'
 type OptionProductButtonProps = {
-    value: TypeProductValueOptionEdit,
+    value: IOptionProductValueData,
     showImage: boolean,
-    model:TypeProductModelEdit | null  ,
-    onSetSelectOption: (key:string,value:string) => void,
-    name:string,
-    selectOption?: {name:string,value:string} 
+    index:number,
+    model:ImodelProductData | null  ,
+    onSetSelectOption: (indexOption: number, indexValue: number) => void,
+    indexOption:number,
+    selectOptions: {[key:number]:number} 
 }
-const OptionProductButton = ({ value, showImage,name,onSetSelectOption,model,selectOption }: OptionProductButtonProps) => {
+const OptionProductButton = ({ value, showImage,indexOption,onSetSelectOption,model,selectOptions,index }: OptionProductButtonProps) => {
 
      const {setImageMainProductPage } = useProductPageContext()
 
-    const customClassName = (selectOption:{name:string,value:string}|undefined, model:TypeProductModelEdit|null) => {
+    const customClassName = (selectOptions: {[key:number]:number} |undefined, model:ImodelProductData|null) => {
         // let selected = 'selected-tick-border'
         let classname = ` border rounded min-h-11 hover:border-blue-500`
         if(showImage){
@@ -28,13 +29,13 @@ const OptionProductButton = ({ value, showImage,name,onSetSelectOption,model,sel
              classname = `${classname} bg-gray-200`
         }
 
-        if(selectOption && selectOption.value == value.label){
+        if(selectOptions && selectOptions[indexOption] == index){
             classname = `${classname} selected-tick-border`
         }
         return classname
     }
 
-    const isDisabeldButton = (model:TypeProductModelEdit|null) => {
+    const isDisabeldButton = (model:ImodelProductData|null) => {
         if(model && model.stock == 0) {
             return true
         }
@@ -52,14 +53,14 @@ const OptionProductButton = ({ value, showImage,name,onSetSelectOption,model,sel
     }
 
     return (
-        <button disabled={isDisabeldButton(model)} className={customClassName(selectOption,model)} onClick={ () => onSetSelectOption(name,value.label)} onMouseEnter={(e) => onHoverButton(e)} data-url={value?.image}>
+        <button disabled={isDisabeldButton(model)} className={customClassName(selectOptions,model)} onClick={ () => onSetSelectOption(indexOption,index)} onMouseEnter={(e) => onHoverButton(e)} data-url={value?.image}>
             {showImage && (
                 <div className='overflow-hidden size-9 rounded'>
                     <Image src={value?.image} width={100} height={100} alt={value.label} className='w-full h-full object-cover' />
                 </div>
             )}
             <span className='block text-sm font-medium text-black'>{value.label}</span>
-            {selectOption && selectOption.value == value.label && (<SelectedTick /> )}
+            {selectOptions && selectOptions[indexOption] == index && (<SelectedTick /> )}
         </button>
     )
 }

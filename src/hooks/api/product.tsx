@@ -1,10 +1,11 @@
 'use client'
-import { TypeProduct, TypeProductComponent, TypeProductEdit } from "@/schemas/product";
+
 import { CreateProduct, GetAllProductsQuickView, IQueryGetAllProductsQuickView, UpdateProduct } from "@/services/product";
 import { MutationKey, QueryKey, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "../use-toast";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { IproductFormEdit, IproductFromAdd } from "@/types/product";
 
 
 const queryKey: QueryKey = ["product"];
@@ -15,7 +16,8 @@ interface IQueryuseGetAllProductQuickView extends Pick<IQueryGetAllProductsQuick
     categories?:string[]
 }
 export const useGetAllProductQuickView = (query:IQueryuseGetAllProductQuickView) => {
-    const [products,setProducts] = useState<TypeProductComponent[]>([])
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [products,setProducts] = useState<any>([])
     const [paginate,setPaginate] = useState<{totalPage:number,page:number}>({
         totalPage:1,
         page:1
@@ -52,7 +54,7 @@ export const useCreateProduct = () => {
     const mutationKey: MutationKey = ['create_product']
     return useMutation({
         mutationKey,
-        mutationFn: async(data:TypeProduct) => await CreateProduct(data),
+        mutationFn: async(data:IproductFromAdd) => await CreateProduct(data),
         onError: () => {
             console.log('Thêm sản phẩm thất bại')
         },
@@ -79,7 +81,7 @@ export const useUpdateProduct = () => {
     const mutationKey: MutationKey = ['update_product']
     return useMutation({
         mutationKey,
-        mutationFn: async(data:TypeProductEdit) => await UpdateProduct(data),
+        mutationFn: async(data:IproductFormEdit) => await UpdateProduct(data),
         onError: () => {
             console.log('Cập nhật sản phẩm thất bại')
         },

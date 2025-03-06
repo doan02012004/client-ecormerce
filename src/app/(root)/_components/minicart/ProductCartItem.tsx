@@ -3,9 +3,10 @@ import Link from 'next/link'
 import React from 'react'
 
 import { MinusIcon, PlusIcon } from 'lucide-react'
-import { IcartItem } from '@/types/cart'
+
 import { defaultImage, formatPrice } from '@/utils/main'
 import { useDecreaseCart, useIncreaseCart } from '@/hooks/api/cart'
+import { IcartItem } from '@/types/cart'
 
 type ProductCartItemProps = {
     cart:IcartItem
@@ -20,11 +21,7 @@ const ProductCartItem = ({cart}:ProductCartItemProps) => {
             const imageDefault = defaultImage() 
             return imageDefault as string
         }
-
-        if(cart.product_id?.type == 'simple'){
-            return cart.product_id.images[0].url
-        }
-        return cart.variant_id.image as string
+        return cart.variant_id.image
     } 
 
     const onDecrease = (id:string) => {
@@ -43,12 +40,7 @@ const ProductCartItem = ({cart}:ProductCartItemProps) => {
                 <Link href={'/'} className='block overflow-hidden text-ellipsis whitespace-nowrap w-64 text-sm font-semibold mb-1 hover:text-blue-500 hover:underline'>{cart.product_id?.name}</Link>
                 {cart.variant_id && (
                     <div className='space-y-1 mb-1 min-h-8'>
-                        {cart.variant_id.combinations.map((com) => (
-                            <div key={com._id} className='flex gap-1 items-center'>
-                                <span className='block text-xs text-gray-400'>{com.name} :</span>
-                                <span className='block text-xs font-semibold'>{com.value}</span>
-                            </div>
-                        ))}
+                        <span className='block text-xs text-gray-500'>{cart.variant_id.name}</span>
                     </div>
                 )}
                 <div className='w-full relative'>

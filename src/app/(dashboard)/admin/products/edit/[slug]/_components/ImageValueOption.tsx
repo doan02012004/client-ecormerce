@@ -1,21 +1,20 @@
 import { CustomLoading } from '@/components/web'
 import { useToast } from '@/hooks/use-toast'
-import { TypeProductOptionEdit, TypeProductValueOptionEdit } from '@/schemas/product'
+
 import { uploadImage } from '@/services/image'
+import { IOptionProductValueFormAdd } from '@/types/product'
 import { ImageIcon } from 'lucide-react'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 
 
 type Props = {
-    value: TypeProductValueOptionEdit,
-    option: TypeProductOptionEdit,
+    value: IOptionProductValueFormAdd
     index:number,
-    indexOption:number,
-    update?: (index: number, value: TypeProductOptionEdit) => void
+    update: ({url,index}:{url:string,index:number}) => void
 }
 
-const ImageValueOption = ({ value,index,update,option,indexOption }: Props) => {
+const ImageValueOption = ({ value,index,update }: Props) => {
     const [loadingImage,setLoadingImage] = useState<boolean>(false)
     const {toast} = useToast()
     useEffect(() => {
@@ -29,12 +28,7 @@ const ImageValueOption = ({ value,index,update,option,indexOption }: Props) => {
                 
                 const data = await uploadImage(file)
                 if (data?.url) {
-                    if(update){
-                        update(indexOption,{
-                            ...option,
-                            values:option.values.map((val,i) =>i == index ? {...val,image:data.url} : val )
-                        })
-                    }
+                    update({index:index,url:data.url})
                 }
             } catch (error) {
                toast({
@@ -49,7 +43,7 @@ const ImageValueOption = ({ value,index,update,option,indexOption }: Props) => {
     }
     return (
         <div className='flex flex-col items-center gap-1'>
-            <label className=' relative size-14 bg-white border rounded-md flex items-center justify-center cursor-pointer hover:border-blue-500' htmlFor={`upload-images-value-${ value?._id}`}>
+            <label className=' relative size-14 bg-white border rounded-md flex items-center justify-center cursor-pointer hover:border-blue-500' htmlFor={`upload-images-value-${value?.id}`}>
                 {value.image ? (
                     <div className='w-full h-full overflow-hidden'>
                         <Image src={value?.image ?? ''} width={100} height={100} className=' object-cover h-full w-full' alt='ảnh' />
@@ -66,7 +60,7 @@ const ImageValueOption = ({ value,index,update,option,indexOption }: Props) => {
                         </div>
                     </>
                 )}
-                   <input onChange={(e) => onChangeImageFile(e)} type="file" className='hidden' id={`upload-images-value-${value?._id}`} />
+                   <input onChange={(e) => onChangeImageFile(e)} type="file" className='hidden' id={`upload-images-value-${value?.id}`} />
             </label>
             <span className='line-clamp-1 text-xs  max-w-24'>{value?.label}</span>
         </div>

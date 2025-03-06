@@ -2,13 +2,14 @@
 import React from 'react'
 import GalleryProduct from './GalleryProduct'
 import InforProduct from './InforProduct'
-import { TypeProductDetail } from '@/schemas/product'
+import { IproductDetail } from '@/types/product'
 
 type ProductDetailMainProps = {
-    product: TypeProductDetail
+    product: IproductDetail
 }
 
 const ProductDetailMain = ({ product }: ProductDetailMainProps) => {
+    console.log("product",product)
     return (
         <div>
             {/* Gallery and Information  */}

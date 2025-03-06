@@ -3,10 +3,10 @@
 import React from 'react'
 import ClassifyProduct from './ClassifyProduct'
 import VariantsProduct from './VariantsProduct'
+import ImageVariants from './ImageVariants'
 
 
 const ConfigurationProduct = () => {
-    
     return (
         <div className='px-2 py-4 rounded-lg bg-white'>
             {/* header  */}
@@ -16,6 +16,7 @@ const ConfigurationProduct = () => {
                 <ClassifyProduct  />
                 {/* Các thuộc tính  */}
                <VariantsProduct />
+               <ImageVariants />
             </div>
         </div>
     )

@@ -6,6 +6,9 @@ import { env } from "@/utils/config"
 export const GetCart = async() => {
     try {
         const result = await authFetch(`${env.DOMAIN_SERVER}/carts`,{method:"GET"})
+        if(!result.ok){
+            return null
+        }
         const data = await result.json()
         return data as Icart
     } catch (error) {

@@ -26,6 +26,14 @@ const AppSidebar = () => {
                 title: "Thông tin chi tiết",
                 url: "/admin/optionals",
               },
+              {
+                title: "Phiếu giảm giá",
+                url: "/admin/coupons",
+              },
+              {
+                title: "Vận chuyển",
+                url: "/admin/ships",
+              },
             ],
           },
           {

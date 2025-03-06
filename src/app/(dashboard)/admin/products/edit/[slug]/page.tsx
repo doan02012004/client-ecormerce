@@ -1,8 +1,10 @@
 import React from 'react'
 
 import { redirect } from 'next/navigation'
-import ProductEditAdminPageMain from './_components/ProductEditAdminPageMain'
 import { instance } from '@/utils/config'
+import ProductEditAdminPageMain from './_components/ProductEditAdminPageMain'
+import { ImodelProductFormAdd, IoptionProductFromAdd, IproductFormEdit } from '@/types/product'
+import { genarateId } from '@/utils/main'
 
 const ProductEditPage = async ({
   params,
@@ -11,11 +13,18 @@ const ProductEditPage = async ({
 }) => {
   try {
     const slug = (await params).slug
-    const result = await instance.get(`/products/admin/slug/${slug}`)
-    
+    const {data} = await instance.get(`/products/admin/slug/${slug}`)
+    const newData = {
+      ...data,
+      images:data.images.map((image:{url:string},index:number) => ({...image, id:`${genarateId()}-${index}`})),
+      models:data.models.map((model:ImodelProductFormAdd,index:number) => ({...model,  id:`${genarateId()}-${index}`})),
+      options:data.options.map((options:IoptionProductFromAdd,index:number) => ({...options,  id:`${genarateId()}-${index}`,
+        values:options.values.map((value,indexValue:number) => ({...value, id:`${genarateId()}-${indexValue}`}))
+      })),
+    } as IproductFormEdit
     return (
       <div className='pb-40 min-w-[1000px]'>
-        <ProductEditAdminPageMain product={result.data} />
+        <ProductEditAdminPageMain product={newData} />
       </div>
     )
   } catch (error) {

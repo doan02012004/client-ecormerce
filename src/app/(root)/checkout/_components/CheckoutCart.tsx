@@ -14,7 +14,7 @@ const CheckoutCart = () => {
             </div>
             {/* content  */}
             <div className='space-y-6'>
-                <div className=' grid-cart bg-white *:text-sm'>
+                <div className='grid-cart-checkout bg-white *:text-sm'>
                     <div>
                         {/* <input type="checkbox" className='size-5' /> */}
                         <span className='text-sm'>Sản phẩm (4)</span>

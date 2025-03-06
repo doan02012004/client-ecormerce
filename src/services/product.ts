@@ -1,8 +1,9 @@
-import { TypeProduct, TypeProductEdit } from "@/schemas/product";
+
+import { IproductFormEdit, IproductFromAdd } from "@/types/product";
 import { instance } from "@/utils/config";
 import { AxiosResponse } from "axios";
 
-export const CreateProduct = async(data:TypeProduct) => {
+export const CreateProduct = async(data:IproductFromAdd) => {
     try {
         const result = await instance.post('/products',data)
         return result.data
@@ -50,7 +51,7 @@ export const GetProductWebBySlug = async(slug:string) => {
   }
 }
 
-export const UpdateProduct = async(data:TypeProductEdit) => {
+export const UpdateProduct = async(data:IproductFormEdit) => {
   try {
       const result = await instance.put(`/products/update/${data._id}`,data)
       return result.data

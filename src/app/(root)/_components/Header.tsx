@@ -8,11 +8,8 @@ import { getSession } from '@/lib/session'
 const Header = async() => {
    const session = await getSession()
     return (
-        <div className=' mb-4 sticky top-0 z-30 h-16 md:h-28'>
-            <div className='hidden bg-gray-900 py-3 md:block '>
-                <h5 className='text-white text-sm font-medium text-center'>Chào mừng bạn đến với <span className='text-red-600 underline font-semibold'>MD-FASHION</span></h5>
-            </div>
-            <div className=' w-full bg-white py-3 shadow shadow-gray-300'>
+        <div className='mb-4 sticky top-0 z-30 h-16 md:h-max'>
+            <div className=' w-full h-full bg-white py-4 shadow shadow-gray-300'>
                 <div className='container'>
                     <div className='relative flex justify-between items-center'>
                         <div className='hidden md:block'>

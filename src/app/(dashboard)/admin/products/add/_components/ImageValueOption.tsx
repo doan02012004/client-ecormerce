@@ -1,22 +1,20 @@
 import { CustomLoading } from '@/components/web'
 import { useToast } from '@/hooks/use-toast'
-import { TypeProductOption, TypeProductValueOption } from '@/schemas/product'
+
 import { uploadImage } from '@/services/image'
-import { IoptionProduct, IvalueOptionProduct } from '@/types/product'
+import { IOptionProductValueFormAdd } from '@/types/product'
 import { ImageIcon } from 'lucide-react'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 
 
 type Props = {
-    value: TypeProductValueOption,
-    option: TypeProductOption,
+    value: IOptionProductValueFormAdd
     index:number,
-    indexOption:number,
-    update?: (index: number, value: TypeProductOption) => void
+    update: ({url,index}:{url:string,index:number}) => void
 }
 
-const ImageValueOption = ({ value,index,update,option,indexOption }: Props) => {
+const ImageValueOption = ({ value,index,update }: Props) => {
     const [loadingImage,setLoadingImage] = useState<boolean>(false)
     const {toast} = useToast()
     useEffect(() => {
@@ -30,12 +28,7 @@ const ImageValueOption = ({ value,index,update,option,indexOption }: Props) => {
                 
                 const data = await uploadImage(file)
                 if (data?.url) {
-                    if(update){
-                        update(indexOption,{
-                            ...option,
-                            values:option.values.map((val,i) =>i == index ? {...val,image:data.url} : val )
-                        })
-                    }
+                    update({index:index,url:data.url})
                 }
             } catch (error) {
                toast({

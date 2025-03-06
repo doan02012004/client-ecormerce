@@ -1,12 +1,12 @@
-import { Icombinations, Imodel, Iproductbase } from "./product"
-type newCombinations = Icombinations & {_id:string}
-export type IvariantCart = Omit<Imodel,"_id"|"sku"|"combinations"> & {_id:string,sku:string,combinations:newCombinations[]}
+import { ImodelProductData, Iproductbase } from "./product"
+
+
 export interface IcartItem {
     _id:string,
     total:number,
     quantity:number,
-    product_id: Iproductbase|null,
-    variant_id: IvariantCart|null,
+    product_id: Iproductbase,
+    variant_id: ImodelProductData,
     url_path:string
 }
 

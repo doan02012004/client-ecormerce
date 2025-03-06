@@ -3,37 +3,31 @@
 // library
 import React from 'react'
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Control, FieldErrors, FormProvider, useForm, UseFormRegister, UseFormSetValue, WatchInternal } from 'react-hook-form'
-import { Iproduct } from '@/types/product'
+import { FormProvider, useForm } from 'react-hook-form'
+import { IproductFromAdd } from '@/types/product'
 
 //components
 import InforbaseProduct from './InforbaseProduct'
 import CreateProduct from './CreateProduct'
-import { productSchema, TypeProduct } from '@/schemas/product';
+import { productFormAddSchema } from '@/schemas/product';
 import ConfigurationProduct from './ConfigurationProduct';
 import { discount } from '@/utils/main';
-import InforDetailProduct from './InforDetailProduct';
+// import InforDetailProduct from './InforDetailProduct';
 import InforShipProduct from './InforShipProduct';
-import { z } from 'zod';
+
 import { useCreateProduct } from '@/hooks/api/product';
 import { CustomLoading } from '@/components/web';
 
 
-export type RegisterTypeCreateProduct = UseFormRegister<Iproduct>
-export type ErrorsTypeCreateProduct = FieldErrors<Iproduct>
-export type WatchTypeCreateProduct = WatchInternal<Iproduct>
-export type SetValueTypeCreateProduct = UseFormSetValue<Iproduct>
-export type ControlTypeCreateProduct = Control<Iproduct>
-const ProductAddAdminPageMain = () => {
-    const method = useForm<TypeProduct>({
-        resolver: zodResolver(productSchema),
+const ProductEditAdminPageMain = () => {
+    const method = useForm<IproductFromAdd>({
+        resolver: zodResolver(productFormAddSchema),
         mode: 'onBlur',
         defaultValues: {
             name: '',
             images: [],
             categories: [],
             description: '',
-            type: 'simple',
             status: true,
             options: [],
             models: [
@@ -45,28 +39,39 @@ const ProductAddAdminPageMain = () => {
                     price: 0,
                     stock: 0,
                     sku: '',
-                    weight: 0
+                    weight: 0,
+                    tiers_index: [],
+                    ship: {
+                        height: 0,
+                        length: 0,
+                        width: 0
+                    },
+                    is_default:true,
+                    sold:0,
                 }
             ],
             attributes: [],
-            weight: 0
+            weight: 0,
+            ship: {
+                height: 0,
+                length: 0,
+                width: 0
+            }
         }
     })
 
     const createProductMutation = useCreateProduct()
 
-    const onSubmit = (data: z.infer<typeof productSchema>) => {
+    const onSubmit = (data: IproductFromAdd) => {
         createProductMutation.mutate(data)
     }
-    
     return (
         <div>
             {createProductMutation.isPending && (
                 <div className='fixed z-40 inset-0 bg-white/40 flex justify-center items-center'>
-                        <CustomLoading size={32} />
+                    <CustomLoading size={32} />
                 </div>
             )}
-            {/* <button onClick={() =>createProductMutation.mutate({name:"hello"}) }>Submit</button> */}
             <FormProvider {...method}>
                 <form onSubmit={method.handleSubmit(onSubmit)}>
                     <div className='grid grid-cols-12 gap-4'>
@@ -74,7 +79,7 @@ const ProductAddAdminPageMain = () => {
                             <h1 className=' uppercase text-base '>Thêm sản phẩm</h1>
                             <InforbaseProduct />
                             <ConfigurationProduct />
-                            <InforDetailProduct />
+                            {/* <InforDetailProduct /> */}
                             <InforShipProduct />
                         </div>
                         <div className='sticky top-20 h-max col-span-3 flex flex-col'>
@@ -90,4 +95,4 @@ const ProductAddAdminPageMain = () => {
     )
 }
 
-export default ProductAddAdminPageMain
+export default ProductEditAdminPageMain

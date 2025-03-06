@@ -1,11 +1,11 @@
 import { useToast } from '@/hooks/use-toast'
-import { TypeProductModelEdit } from '@/schemas/product'
+import { ImodelProductData } from '@/types/product'
 import { Minus, Plus } from 'lucide-react'
 import { MutableRefObject} from 'react'
 
 type InputStockProductDetailProps = {
     inputRef: MutableRefObject<HTMLInputElement | null>,
-    selectVariant: TypeProductModelEdit | null
+    selectVariant: ImodelProductData | null
 }
 const InputStockProductDetail = ({ inputRef, selectVariant }: InputStockProductDetailProps) => {
 

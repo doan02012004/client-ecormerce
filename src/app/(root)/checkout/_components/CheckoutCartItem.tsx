@@ -29,7 +29,7 @@ const CheckoutCartItem = ({ item }: CheckoutCartItemProps) => {
     }
     
     return (
-        <div className=' grid-cart *:text-sm'>
+        <div className='grid-cart-checkout *:text-sm'>
             <div >
                 {/* <input type="checkbox" className='size-5' /> */}
                 <div className='grid grid-cols-[64px_auto] gap-4'>

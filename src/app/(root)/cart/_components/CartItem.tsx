@@ -27,10 +27,6 @@ const CartItem = ({item,onDecrease,onIncrease,onUpdateQuantity,onDelete}:CartIte
                 const imageDefault = defaultImage() 
                 return imageDefault as string
             }
-    
-            if(cart.product_id?.type == 'simple'){
-                return cart.product_id.images[0].url
-            }
             return cart.variant_id.image as string
     }
 

@@ -1,7 +1,7 @@
 import { Imodel, IoptionProduct, Iproduct } from "@/types/product"
 import { sortBy } from "lodash"
 import isEqual from 'lodash/isEqual'
-
+import moment from 'moment'
 export const genarateId = () => {
   return `id-${Date.now()}`
 }
@@ -47,33 +47,35 @@ export const checkDataProductOptions = (data: IoptionProduct[]) => {
   return true
 }
 
-export const checkDataProductModels= (data: Imodel[]) => {
-  if(data?.length ===0) return false
-  for(const model of data){
-    delete model.sku 
+export const checkDataProductModels = (data: Imodel[]) => {
+  if (data?.length === 0) return false
+  for (const model of data) {
+    delete model.sku
     delete model._id
     console.log(model)
-    if(Object.keys(model).some((value) => value === null || value === undefined || value === "" || Number(value) < 0)){
+    if (Object.keys(model).some((value) => value === null || value === undefined || value === "" || Number(value) < 0)) {
       return false
     }
   }
 
   return true
 }
-export const defaultImage = () =>{
+export const defaultImage = () => {
   return '/assets/images/images.png'
 }
 
-export const formatPrice = (price:number) =>{
-  if(!price) return `0 đ`
+export const formatPrice = (price: number) => {
+  if (!price) return `0 đ`
   return `${price.toLocaleString('vi-VN')} đ`
 }
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const isSameArray = (arr1:any,arr2:any,key:string[]) => {
-  const check = isEqual(sortBy(arr1,key),sortBy(arr2,key))
+export const isSameArray = (arr1: any, arr2: any, key: string[]) => {
+  const check = isEqual(sortBy(arr1, key), sortBy(arr2, key))
   return check
 }
 
-
+export const formatDate = (date: number) => {
+  return  moment(date).format('D/MM/yyyy')
+}

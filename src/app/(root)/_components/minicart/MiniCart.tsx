@@ -73,7 +73,7 @@ const MiniCart = () => {
        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[path])
-
+    
     return (
         <>
             <div onClick={() => setOpenMiniCart(true)} className='relative size-10 cursor-pointer  rounded-full flex justify-center items-center border transition duration-300 ease-in-out hover:shadow hover:shadow-gray-300'>

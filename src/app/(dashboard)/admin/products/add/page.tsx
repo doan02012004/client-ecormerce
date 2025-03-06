@@ -1,12 +1,12 @@
+import ProductEditAdminPageMain from "./_components/ProductEditAdminPageMain"
 
 
-import ProductAddAdminPageMain from './_components/ProductAddAdminPageMain'
 
 
 const ProductAddAdminPage = () => {
     return (
         <div className='pb-40 min-w-[1000px]'>
-           <ProductAddAdminPageMain />
+          <ProductEditAdminPageMain />
         </div>
     )
 }

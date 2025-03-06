@@ -7,23 +7,22 @@ import DescriptionProduct from './DescriptionProduct'
 import { Button } from '@/components/ui/button'
 import { Heart, ShoppingCart } from 'lucide-react'
 import OptionsProduct from './OptionsProduct'
-import { TypeProductDetail, TypeProductModelEdit, TypeProductModelsEdit, TypeProductOptionsEdit } from '@/schemas/product'
-import { formatPrice, isSameArray } from '@/utils/main'
+import { formatPrice } from '@/utils/main'
 import InputStockProductDetail from './InputStockProductDetail'
 import { useToast } from '@/hooks/use-toast'
 import { useCartAdd } from '@/hooks/api/cart'
+import { ImodelProductData, IoptionProductData, IproductDetail } from '@/types/product'
 
 
 type InforProductProps = {
-    product: TypeProductDetail
+    product: IproductDetail
 }
 
 export interface selectOption {
-    name: string,
-    value: string
+   [key:number]: number
 }
 
-const ShowPriceProductDetail = ({ product, variant }: { product: TypeProductDetail, variant: TypeProductModelEdit | null }) => {
+const ShowPriceProductDetail = ({ product, variant }: { product: IproductDetail, variant: ImodelProductData | null }) => {
     if (variant) {
         if (variant.price == variant.original_price) {
             return (
@@ -53,17 +52,17 @@ const ShowPriceProductDetail = ({ product, variant }: { product: TypeProductDeta
 }
 
 export interface IfilterVariantsBySelectOptions {
-    name: string,
-    variants: TypeProductModelsEdit
+    index: number,
+    variants: ImodelProductData[]
 }
 
 const InforProduct = ({ product }: InforProductProps) => {
     const { toast } = useToast()
     const [filterVariantsBySelectOptions, setFilterVariantsBySelectOptions] = useState<IfilterVariantsBySelectOptions[]>([])
-    const [selectOptions, setSelectOptions] = useState<selectOption[]>([])
+    const [selectOptions, setSelectOptions] = useState<selectOption>({})
     const inputRef = useRef<HTMLInputElement | null>(null)
-    const [selectVariant, setSelectVariant] = useState<TypeProductModelEdit | null>(() => {
-        if (product.type == 'simple') {
+    const [selectVariant, setSelectVariant] = useState<ImodelProductData | null>(() => {
+        if (product.options.length === 0) {
             return product.models[0]
         } else {
             return null
@@ -72,51 +71,57 @@ const InforProduct = ({ product }: InforProductProps) => {
 
     const AddToCartMutation = useCartAdd()
 
-    // Tìm variant bằng selectVariant (khi người dùng nhấp chọn thuộc tính)
-    const onFindVariant = (models: TypeProductModelsEdit, selectVariant: TypeProductModelEdit | null, selectOptions: selectOption[]) => {
+    // Tìm variant bằng selectOptions (khi người dùng nhấp chọn thuộc tính)
+    const onFindVariant = (models: ImodelProductData[], selectVariant: ImodelProductData | null, selectOptions: selectOption) => {
 
-        if (selectOptions.length == 0) {
+        if (Object.keys(selectOptions).length !== product.options.length) {
             if (selectVariant) {
                 setSelectVariant(null)
             }
             return
-        }
-
-        const findVarriant = models.find((model) => {
-            const newCombinations = model.combinations.map((ite) => ({ name: ite.name, value: ite.value }))
-            const check = isSameArray(selectOptions, newCombinations, ["name", "value"])
-            return check
-        })
-        if (findVarriant) {
-            setSelectVariant(findVarriant)
-            return
-        } else {
-            if (selectVariant) {
-                setSelectVariant(null)
+        }else{
+            const arrayTiersIndex = Object.entries(selectOptions).map((ite) => ite[1])
+            console.log("arrayTiersIndex",arrayTiersIndex)
+            const findVarriant = models.find((model) => model.tiers_index.every((val:number,index:number) => val === selectOptions[index]) )
+            console.log("findVarriant",findVarriant)
+            if (findVarriant) {
+                setSelectVariant(findVarriant)
                 return
+            } else {
+                if (selectVariant) {
+                    setSelectVariant(null)
+                    return
+                }
             }
         }
+
     }
 
     // Lọc variant bằng selectOptions (khi người dùng nhấp chọn thuộc tính)
-    const onFilterVarriantsBySelectOptions = (models: TypeProductModelsEdit, options: TypeProductOptionsEdit | [], selectOptions: selectOption[]) => {
-        if (options.length == 0 || options.length == 1) {
+    const onFilterVarriantsBySelectOptions = (models: ImodelProductData[], options: IoptionProductData[] | [], selectOptions: selectOption) => {
+        if (options.length == 0) {
             return
+        }
+        if (options.length == 1) {
+            const newFilterVarriants = [{
+                index: 0,
+                variants: models
+            }] as IfilterVariantsBySelectOptions[]
+            return setFilterVariantsBySelectOptions(newFilterVarriants)
+            
         }
         // nếu options có 2 giá trị trở lên
         if (options.length == 2) {
-            const newFilterVarriants = selectOptions.map((option) => {
+            const newFilterVarriants = options.map((_,index:number) => {
                 const variants = models.filter((model) => {
-                    const findIndex = model.combinations.findIndex((ite) => ite.name == option.name && ite.value == option.value)
-                    if (findIndex >= 0) {
+                    if (selectOptions[index] == model.tiers_index[index]) {
                         return true
                     } else {
                         return false
                     }
                 })
-                const differentOption = options.filter((ite) => ite.name !== option.name)
                 return {
-                    name: differentOption[0].name,
+                    index: index == 0 ? 1: 0,
                     variants: variants
                 }
             }) as IfilterVariantsBySelectOptions[]
@@ -127,30 +132,13 @@ const InforProduct = ({ product }: InforProductProps) => {
 
     }
 
-    // Lọc variant bằng selectOptions (khi người dùng nhấp chọn thuộc tính)
-    const onFilterVarriants = (models: TypeProductModelsEdit, options: TypeProductOptionsEdit | []) => {
-
-        // nếu options có 1 giá trị 
-        if (options.length == 1) {
-            const newFilterVarriants = [{
-                name: options[0].name,
-                variants: models
-            }] as IfilterVariantsBySelectOptions[]
-            setFilterVariantsBySelectOptions(newFilterVarriants)
-            return
-        }
-
-    }
 
     useEffect(() => {
-        if(product.type == 'configurable'){
-            onFindVariant(product.models, selectVariant, selectOptions)
-        }
-        if (product.options.length == 1) {
-            onFilterVarriants(product.models, product.options)
-        } else if (product.options.length == 2) {
-            onFilterVarriantsBySelectOptions(product.models, product.options, selectOptions)
-        }
+        // if(product.options.length == 0){
+        //    return onFindVariant(product.models, selectVariant, selectOptions)
+        // }
+        onFilterVarriantsBySelectOptions(product.models, product.options, selectOptions)
+        onFindVariant(product.models, selectVariant, selectOptions)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectOptions])
 
@@ -185,7 +173,8 @@ const InforProduct = ({ product }: InforProductProps) => {
         }
         AddToCartMutation.mutate(data)
     }
-
+     
+    console.log(selectOptions)
     return (
         <div className=' basis-[60%] '>
             <div className='p-3 bg-white rounded-lg w-full mb-4'>

@@ -1,6 +1,6 @@
 'use client'
 import { useToast } from '@/hooks/use-toast'
-import { TypeProductEdit, TypeProductModelsEdit } from '@/schemas/product'
+import { ImodelProductFormAdd, IproductFormEdit } from '@/types/product'
 import { discount } from '@/utils/main'
 import React, { useCallback, useState } from 'react'
 import { UseFormSetValue } from 'react-hook-form'
@@ -11,8 +11,8 @@ interface dataForm {
 }
 
 type FormFieldVariantProps = {
-    setValue: UseFormSetValue<TypeProductEdit>,
-    models: TypeProductModelsEdit
+    setValue: UseFormSetValue<IproductFormEdit>,
+    models: ImodelProductFormAdd[]
 }
 
 const modelValueShema = z.object({
@@ -39,7 +39,7 @@ const FormFieldVariant = ({ models, setValue }: FormFieldVariantProps) => {
     })
     const { toast } = useToast()
 
-    const fieldAllDataVariant = useCallback((data: dataForm, models: TypeProductModelsEdit) => {
+    const fieldAllDataVariant = useCallback((data: dataForm, models: ImodelProductFormAdd[]) => {
         const newModels = models.map((model) => {
             return {
                 ...model,
@@ -105,7 +105,7 @@ const FormFieldVariant = ({ models, setValue }: FormFieldVariantProps) => {
             </div>
 
             <div className='bg-transparent'>
-                <button onClick={() => onSubmit()} type='button' className='w-full h-full bg-black text-white'>Thêm dữ liệu</button>
+                <button onClick={() => onSubmit()} type='button' className='w-full h-full bg-black text-white'>Áp dụng</button>
             </div>
         </div>
     )
